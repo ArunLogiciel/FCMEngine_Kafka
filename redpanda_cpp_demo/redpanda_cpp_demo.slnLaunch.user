@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "redpanda_cpp_demo.vcxproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "..\\Consumer\\Consumer.vcxproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

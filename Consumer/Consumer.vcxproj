@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{cc80fdd7-5b5a-4c38-8755-9bf0e2110169}</ProjectGuid>
+    <RootNamespace>Consumer</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/bigobj </AdditionalOptions>
+      <AdditionalIncludeDirectories>D:\CppProducerConsumer\Consumer\FeeModule\PostgreSQL\include;D:\CppProducerConsumer\Consumer\include\cli;D:\OE-Production-Build\Libraries_64bit_VC17\boost_1_82_0</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>libpq.lib;logger.lib;fmtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\CppProducerConsumer\Consumer\FeeModule\libs;D:\CppProducerConsumer\Consumer\FeeModule\logger\quill;D:\CppProducerConsumer\Consumer\FeeModule\PostgreSQL\lib;D:\CppProducerConsumer\Consumer\FeeModule\PostgreSQL\include;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/bigobj </AdditionalOptions>
+      <AdditionalIncludeDirectories>D:\CppProducerConsumer\Consumer\FeeModule\PostgreSQL\include;D:\CppProducerConsumer\Consumer\include\cli;D:\OE-Production-Build\Libraries_64bit_VC17\boost_1_82_0</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>libpq.lib;logger.lib;fmt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\CppProducerConsumer\Consumer\FeeModule\libs;D:\CppProducerConsumer\Consumer\FeeModule\logger\quill;D:\CppProducerConsumer\Consumer\FeeModule\PostgreSQL\lib;D:\CppProducerConsumer\Consumer\FeeModule\PostgreSQL\include;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Consumer.cpp" />
+    <ClCompile Include="src\AccountsStore.cpp" />
+    <ClCompile Include="src\APIAdapter.cpp" />
+    <ClCompile Include="src\CLIManager.cpp" />
+    <ClCompile Include="src\CliModule.cpp" />
+    <ClCompile Include="src\CodedMethod.cpp" />
+    <ClCompile Include="src\DBBulkInserter.cpp" />
+    <ClCompile Include="src\DbDataAdapter.cpp" />
+    <ClCompile Include="src\FCMEngine.cpp" />
+    <ClCompile Include="src\FeeComissionManager.cpp" />
+    <ClCompile Include="src\FeeCommissionStore.cpp" />
+    <ClCompile Include="src\FeeModule.cpp" />
+    <ClCompile Include="src\HolidayAdapter.cpp" />
+    <ClCompile Include="src\HolidayStore.cpp" />
+    <ClCompile Include="src\HttpClient.cpp" />
+    <ClCompile Include="src\MethodInvoker.cpp" />
+    <ClCompile Include="src\PerExecutionPlanExecutor.cpp" />
+    <ClCompile Include="src\PerOrderPlanExecutor.cpp" />
+    <ClCompile Include="src\PerSymbolPlanExecutor.cpp" />
+    <ClCompile Include="src\PlanExecutorStore.cpp" />
+    <ClCompile Include="src\PlanSelector.cpp" />
+    <ClCompile Include="src\RawMethod.cpp" />
+    <ClCompile Include="src\ReportManager.cpp" />
+    <ClCompile Include="src\StaticDataManager.cpp" />
+    <ClCompile Include="src\SymbolStore.cpp" />
+    <ClCompile Include="src\TabularMethod.cpp" />
+    <ClCompile Include="src\TieredMethod.cpp" />
+    <ClCompile Include="src\TradeFeePlanExecutor.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FeeModule\AccountsStore.h" />
+    <ClInclude Include="FeeModule\APIAdapter.h" />
+    <ClInclude Include="FeeModule\businessObjects.h" />
+    <ClInclude Include="FeeModule\CLIManager.h" />
+    <ClInclude Include="FeeModule\CliModule.h" />
+    <ClInclude Include="FeeModule\CodedMethod.h" />
+    <ClInclude Include="FeeModule\Common.h" />
+    <ClInclude Include="FeeModule\DBBulkInserter.h" />
+    <ClInclude Include="FeeModule\DbDataAdapter.h" />
+    <ClInclude Include="FeeModule\DBLpp\include\common.h" />
+    <ClInclude Include="FeeModule\FCMEngine.h" />
+    <ClInclude Include="FeeModule\FeeComissionManager.h" />
+    <ClInclude Include="FeeModule\FeeCommissionStore.h" />
+    <ClInclude Include="FeeModule\FeeModule.h" />
+    <ClInclude Include="FeeModule\FeePlanExecutor.h" />
+    <ClInclude Include="FeeModule\framework.h" />
+    <ClInclude Include="FeeModule\HolidayAdapter.h" />
+    <ClInclude Include="FeeModule\HolidayStore.h" />
+    <ClInclude Include="FeeModule\HttpClient.h" />
+    <ClInclude Include="FeeModule\IniParser.h" />
+    <ClInclude Include="FeeModule\MethodInvoker.h" />
+    <ClInclude Include="FeeModule\ParsingException.h" />
+    <ClInclude Include="FeeModule\pch.h" />
+    <ClInclude Include="FeeModule\PerExecutionPlanExecutor.h" />
+    <ClInclude Include="FeeModule\PerOrderPlanExecutor.h" />
+    <ClInclude Include="FeeModule\PerSymbolPlanExecutor.h" />
+    <ClInclude Include="FeeModule\PlanExecutorStore.h" />
+    <ClInclude Include="FeeModule\PlanSelector.h" />
+    <ClInclude Include="FeeModule\RawMethod.h" />
+    <ClInclude Include="FeeModule\ReportManager.h" />
+    <ClInclude Include="FeeModule\StaticDataManager.h" />
+    <ClInclude Include="FeeModule\SymbolStore.h" />
+    <ClInclude Include="FeeModule\TabularMethod.h" />
+    <ClInclude Include="FeeModule\TieredMethod.h" />
+    <ClInclude Include="FeeModule\TradeFeePlanExecutor.h" />
+    <ClInclude Include="FeeModule\Utility.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\redpanda_cpp_demo\packages\librdkafka.redist.2.14.1\build\native\librdkafka.redist.targets" Condition="Exists('..\redpanda_cpp_demo\packages\librdkafka.redist.2.14.1\build\native\librdkafka.redist.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\redpanda_cpp_demo\packages\librdkafka.redist.2.14.1\build\native\librdkafka.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\redpanda_cpp_demo\packages\librdkafka.redist.2.14.1\build\native\librdkafka.redist.targets'))" />
+  </Target>
+</Project>

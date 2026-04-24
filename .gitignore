@@ -1,0 +1,32 @@
+# Visual Studio
+.vs/
+*.VC.db
+*.VC.opendb
+
+# Build folders
+x64/
+Debug/
+Release/
+bin/
+out/
+
+# Compiled files
+*.obj
+*.o
+*.exe
+*.dll
+*.lib
+*.pdb
+*.ipch
+*.iobj
+*.ipdb
+
+# Packages
+*.nupkg
+
+# Logs
+*.log
+
+
+#Modules
+Consumer/FeeModule/
