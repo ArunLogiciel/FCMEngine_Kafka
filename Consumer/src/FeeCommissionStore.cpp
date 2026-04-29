@@ -86,7 +86,7 @@ void LSL::FeeModule::FeeCommissionStore::init(AccountsStore& accountStore)
 	catch (std::exception& ex)
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << ex.what();
-		WARNING_LOG("FeeModule", fmt::format("{} - {}", __PRETTY_FUNCTION__, ex.what()));
+		//WARNING_LOG("FeeModule", fmt::format("{} - {}", __PRETTY_FUNCTION__, ex.what()));
 		throw std::exception("Invalid Date Provided");
 	}
 
@@ -122,7 +122,7 @@ void LSL::FeeModule::FeeCommissionStore::init(AccountsStore& accountStore)
 		}
 	}
 	//LogInfo() << __PRETTY_FUNCTION__ << " 'Initialized'";
-	INFO_LOG("FeeModule", fmt::format("{} - Initialized", __PRETTY_FUNCTION__));
+	//INFO_LOG("FeeModule", fmt::format("{} - Initialized", __PRETTY_FUNCTION__));
 }
 
 void LSL::FeeModule::FeeCommissionStore::init(const Adjustment& adjustment)
@@ -147,7 +147,7 @@ void LSL::FeeModule::FeeCommissionStore::init(const Adjustment& adjustment)
 					else
 					{
 						//LogWarning() << __PRETTY_FUNCTION__ << " 'Multiple Equity Monthly Volume Data for Account:" << data.accountValue << "'";
-						WARNING_LOG("FeeModule", fmt::format("{} - Multiple Equity Monthly Volume Data for Account:{}", __PRETTY_FUNCTION__, data.accountValue));
+						//WARNING_LOG("FeeModule", fmt::format("{} - Multiple Equity Monthly Volume Data for Account:{}", __PRETTY_FUNCTION__, data.accountValue));
 					}
 				}
 				else if (data.tradeType == EN_Instrument_Type_Option)
@@ -157,7 +157,7 @@ void LSL::FeeModule::FeeCommissionStore::init(const Adjustment& adjustment)
 					else
 					{
 						//LogWarning() << __PRETTY_FUNCTION__ << " 'Multiple Option Monthly Volume Data for Account:" << data.accountValue << "'";
-						WARNING_LOG("FeeModule", fmt::format("{} - Multiple Option Monthly Volume Data for Account:{}", __PRETTY_FUNCTION__, data.accountValue));
+						//WARNING_LOG("FeeModule", fmt::format("{} - Multiple Option Monthly Volume Data for Account:{}", __PRETTY_FUNCTION__, data.accountValue));
 					}
 				}
 			}
@@ -203,18 +203,18 @@ void LSL::FeeModule::FeeCommissionStore::init(const Adjustment& adjustment)
 	catch (std::exception& ex)
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << ex.what();
-		WARNING_LOG("FeeModule", fmt::format("{} - {}", __PRETTY_FUNCTION__, ex.what()));
+		//WARNING_LOG("FeeModule", fmt::format("{} - {}", __PRETTY_FUNCTION__, ex.what()));
 		throw std::exception("Invalid Date Provided");
 	}
 
 	//LogInfo() << __PRETTY_FUNCTION__ << " 'Initialized'";
-	INFO_LOG("FeeModule", fmt::format("{} - Initialized", __PRETTY_FUNCTION__));
+	//INFO_LOG("FeeModule", fmt::format("{} - Initialized", __PRETTY_FUNCTION__));
 }
 
 void LSL::FeeModule::FeeCommissionStore::FillState(OrderExecutionData& data)
 {
 	//LogDebug() << __PRETTY_FUNCTION__ << " 'called for OrderId:" << data.orderId << " | ExecutionId:" << data.executionId << "'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - called Order ID:{} | ExecutionId: {}", __PRETTY_FUNCTION__, data.orderId, data.executionId));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - called Order ID:{} | ExecutionId: {}", __PRETTY_FUNCTION__, data.orderId, data.executionId));
 	updateMonthlyVolume(data);
 	updateMPIdMonthlyVolume(data);
 	updateFirmMonthlyVolume(data);
@@ -230,13 +230,13 @@ void LSL::FeeModule::FeeCommissionStore::FillState(OrderExecutionData& data)
 	}
 
 	//LogDebug() << __PRETTY_FUNCTION__ << " 'Fill Count & Monthly Volume Updated & Populated'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - Fill Count & Monthly Volume Updated & Populated", __PRETTY_FUNCTION__));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - Fill Count & Monthly Volume Updated & Populated", __PRETTY_FUNCTION__));
 }
 
 void LSL::FeeModule::FeeCommissionStore::SaveFeeAndComission(const OrderExecutionData& data, const FeeComissionData& feeCommission, const FeeComissionData& mpidFees)
 {
 	//LogDebug() << __PRETTY_FUNCTION__ << " 'called'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - called", __PRETTY_FUNCTION__));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - called", __PRETTY_FUNCTION__));
 	DbDataAdapter::getInstance()->filldataFeeCommissionsStore(data, feeCommission, mpidFees);
 }
 
@@ -244,7 +244,7 @@ void LSL::FeeModule::FeeCommissionStore::SaveFeeAndComission(const OrderExecutio
 void LSL::FeeModule::FeeCommissionStore::finish()
 {
 	//LogInfo() << __PRETTY_FUNCTION__ << " 'Finished'";
-	INFO_LOG("FeeModule", fmt::format("{} - Finished", __PRETTY_FUNCTION__));
+	//INFO_LOG("FeeModule", fmt::format("{} - Finished", __PRETTY_FUNCTION__));
 }
 
 void LSL::FeeModule::FeeCommissionStore::updateMonthlyVolume(const OrderExecutionData& data)
@@ -417,7 +417,7 @@ void LSL::FeeModule::FeeCommissionStore::updateFillCount(const OrderExecutionDat
 int64_t LSL::FeeModule::FeeCommissionStore::getFillCount(const OrderExecutionData& data)
 {
 	//LogDebug() << __PRETTY_FUNCTION__ << " 'called Order ID:" << data.orderId << "'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - called Order ID:{}", __PRETTY_FUNCTION__, data.orderId));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - called Order ID:{}", __PRETTY_FUNCTION__, data.orderId));
 	MAP_FILL_COUNT::iterator it = m_orderFillCount.find(data.orderId + data.accountValue);
 
 	if (it != m_orderFillCount.end())

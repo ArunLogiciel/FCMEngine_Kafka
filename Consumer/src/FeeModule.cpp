@@ -32,19 +32,19 @@ void LSL::FeeCommissionModule::init()
 {
 
 	//LogWarning() << __PRETTY_FUNCTION__ << ": Initializing";
-	WARNING_LOG("FeeModule", fmt::format("{} - Initializing", __PRETTY_FUNCTION__));
+	//WARNING_LOG("FeeModule", fmt::format("{} - Initializing", __PRETTY_FUNCTION__));
 	m_feeComissionManager.init();
 	//LogWarning() << __PRETTY_FUNCTION__ << ": Initialized Successfully";
-	WARNING_LOG("FeeModule", fmt::format("{} - Initialized Successfully", __PRETTY_FUNCTION__));
+	//WARNING_LOG("FeeModule", fmt::format("{} - Initialized Successfully", __PRETTY_FUNCTION__));
 }
 
 void LSL::FeeCommissionModule::init(Adjustment& adjustment)
 {
 	//LogWarning() << __PRETTY_FUNCTION__ << ": Initializing";
-	WARNING_LOG("FeeModule", fmt::format("{} - Initializing", __PRETTY_FUNCTION__));
+	//WARNING_LOG("FeeModule", fmt::format("{} - Initializing", __PRETTY_FUNCTION__));
 	m_feeComissionManager.init(adjustment);
 	//LogInfo() << __PRETTY_FUNCTION__ << ": Initialized Successfully";
-	INFO_LOG("FeeModule", fmt::format("{} - Initialized Successfully", __PRETTY_FUNCTION__));
+	//INFO_LOG("FeeModule", fmt::format("{} - Initialized Successfully", __PRETTY_FUNCTION__));
 }
 
 

@@ -8,7 +8,7 @@
 RawMethod::RawMethod(std::string& formulaJSON)
 {
 	//LogDebug() << __PRETTY_FUNCTION__ << " 'Initializing Raw Method'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - Initializing Raw Method", __PRETTY_FUNCTION__));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - Initializing Raw Method", __PRETTY_FUNCTION__));
 	parse_json(formulaJSON);
 	populate_symbol_table();
 	auto parsed = parser.compile(expr_string, expression);
@@ -16,7 +16,7 @@ RawMethod::RawMethod(std::string& formulaJSON)
 	if (!parsed)
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'Parser Unable To Compile Raw Formula'";
-		WARNING_LOG("FeeModule", fmt::format("{} - Parser Unable To Compile Raw Formula", __PRETTY_FUNCTION__));
+		//WARNING_LOG("FeeModule", fmt::format("{} - Parser Unable To Compile Raw Formula", __PRETTY_FUNCTION__));
 		throw ParsingException("Parser Unable To Compile Raw Formula");
 	}
 }
@@ -24,14 +24,14 @@ RawMethod::RawMethod(std::string& formulaJSON)
 RawMethod::RawMethod(RawMethod& rhs)
 {
 	//LogDebug() << __PRETTY_FUNCTION__ << " 'Copying Raw Method Object'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - Copying Raw Method Object", __PRETTY_FUNCTION__));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - Copying Raw Method Object", __PRETTY_FUNCTION__));
 	expression = rhs.expression;
 }
 
 RawMethod::RawMethod(RawMethod&& rhs) noexcept
 {
 	//LogDebug() << __PRETTY_FUNCTION__ << " 'Moving Raw Method Object'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - Moving Raw Method Object", __PRETTY_FUNCTION__));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - Moving Raw Method Object", __PRETTY_FUNCTION__));
 	expression = rhs.expression;
 }
 
@@ -56,7 +56,7 @@ std::pair<bool, double> RawMethod::evaluate(const OrderExecutionData& data)
 void RawMethod::populate_symbol_table()
 {
 	//LogDebug() << __PRETTY_FUNCTION__ << " 'Populating Symbols For Raw Method Code'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - Populating Symbols For Raw Method Code", __PRETTY_FUNCTION__));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - Populating Symbols For Raw Method Code", __PRETTY_FUNCTION__));
 	symbol_table_t symbol_table;
 	symbol_table.add_variable("Penny", vars.Penny);
 	symbol_table.add_variable("Price", vars.Price);
@@ -89,12 +89,12 @@ void RawMethod::populate_symbol_table()
 void RawMethod::parse_json(std::string& formula)
 {
 	//LogDebug() << __PRETTY_FUNCTION__ << " Parsing JSON to get Raw Method Code'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - Parsing JSON to get Raw Method Code", __PRETTY_FUNCTION__));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - Parsing JSON to get Raw Method Code", __PRETTY_FUNCTION__));
 
 	if (formula == "null")
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'JSON Method Is Empty Unable To Parse'";
-		WARNING_LOG("FeeModule", fmt::format("{} - JSON Method Is Empty Unable To Parse", __PRETTY_FUNCTION__));
+		//WARNING_LOG("FeeModule", fmt::format("{} - JSON Method Is Empty Unable To Parse", __PRETTY_FUNCTION__));
 		throw ParsingException("JSON Method Is Empty Unable To Parse");
 	}
 
@@ -119,14 +119,14 @@ void RawMethod::parse_json(std::string& formula)
 	if (document.HasParseError())
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'JSON Raw Method Parsing Error'";
-		WARNING_LOG("FeeModule", fmt::format("{} - JSON Raw Method Parsing Error", __PRETTY_FUNCTION__));
+		//WARNING_LOG("FeeModule", fmt::format("{} - JSON Raw Method Parsing Error", __PRETTY_FUNCTION__));
 		throw ParsingException("Failed to Parse Raw Formula");
 	}
 
 	if (!document.HasMember("MethodStr"))
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'JSON Raw Method Parsing Error'";
-		WARNING_LOG("FeeModule", fmt::format("{} - JSON Raw Method Parsing Error", __PRETTY_FUNCTION__));
+		//WARNING_LOG("FeeModule", fmt::format("{} - JSON Raw Method Parsing Error", __PRETTY_FUNCTION__));
 		throw ParsingException("Failed To Parse Raw Formula");
 	}
 
@@ -139,7 +139,7 @@ void RawMethod::parse_json(std::string& formula)
 	else
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'JSON Formula Parsing Error'";
-		WARNING_LOG("FeeModule", fmt::format("{} - JSON Formula Parsing Error", __PRETTY_FUNCTION__));
+		//WARNING_LOG("FeeModule", fmt::format("{} - JSON Formula Parsing Error", __PRETTY_FUNCTION__));
 		throw ParsingException("Empty Raw Formula");
 	}
 }

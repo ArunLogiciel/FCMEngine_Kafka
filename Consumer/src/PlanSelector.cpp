@@ -8,20 +8,20 @@ using PlansMap = std::unordered_map<std::string, Plan>;
 void LSL::FeeModule::PlanSelector::init(const std::vector<Account>& accounts)
 {
 	//LogDebug() << __PRETTY_FUNCTION__ << ": Initializing";
-	DEBUG_LOG("FeeModule", fmt::format("{} - Initializing", __PRETTY_FUNCTION__));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - Initializing", __PRETTY_FUNCTION__));
 
 	populatePlans();
 
 	populateTradeFees(accounts);
 
 	//LogInfo() << __PRETTY_FUNCTION__ << " 'Initialized'";
-	INFO_LOG("FeeModule", fmt::format("{} - Initialized", __PRETTY_FUNCTION__));
+	//INFO_LOG("FeeModule", fmt::format("{} - Initialized", __PRETTY_FUNCTION__));
 }
 
 void LSL::FeeModule::PlanSelector::init(Adjustment& adjustment)
 {
 	//LogDebug() << __PRETTY_FUNCTION__ << ": Initializing";
-	DEBUG_LOG("FeeModule", fmt::format("{} - Initializing", __PRETTY_FUNCTION__));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - Initializing", __PRETTY_FUNCTION__));
 	
 	//Retrieving MPID Accounts Only
 	std::vector<Account> accounts;
@@ -37,7 +37,7 @@ void LSL::FeeModule::PlanSelector::init(Adjustment& adjustment)
 	populateAdjustedTradeFees(adjustment, accounts);
 
 	//LogInfo() << __PRETTY_FUNCTION__ << " 'Initialized'";
-	INFO_LOG("FeeModule", fmt::format("{} - Initialized", __PRETTY_FUNCTION__));
+	//INFO_LOG("FeeModule", fmt::format("{} - Initialized", __PRETTY_FUNCTION__));
 }
 
 void LSL::FeeModule::PlanSelector::populatePlans()
@@ -46,11 +46,11 @@ void LSL::FeeModule::PlanSelector::populatePlans()
 	int error = DbDataAdapter::getInstance()->dataRetrievedPlans(plans);
 	if (error != 0 || plans.empty())
 	{
-		throw std::runtime_error("Unable to Retrieve Plans");
+		//throw std::runtime_error("Unable to Retrieve Plans");
 	}
 	
 	//LogDebug() << __PRETTY_FUNCTION__ << " 'TradeFeePlanExecutor: Inserting Retrieved Plans from DB to MAP'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - TradeFeePlanExecutor: Inserting Retrieved Plans from DB to MAP ", __PRETTY_FUNCTION__));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - TradeFeePlanExecutor: Inserting Retrieved Plans from DB to MAP ", __PRETTY_FUNCTION__));
 	for (std::vector<Plan>::iterator it = plans.begin(); it != plans.end(); ++it)
 	{
 		if (it->feeTypeId == EN_FeeCategoryType_TradeFee ||	it->feeTypeId == EN_FeeCategoryType_MpidFee	) 	// TradeFee = 1, MPIDFee = 3
@@ -66,11 +66,11 @@ void LSL::FeeModule::PlanSelector::populateTradeFees(const std::vector<Account>&
 	int error = DbDataAdapter::getInstance()->dataRetrievedTradeFeePlan(tradeFees);
 	if (error != 0 || tradeFees.empty())
 	{
-		throw std::runtime_error("Unable to Retrieve TradeFees");
+		//throw std::runtime_error("Unable to Retrieve TradeFees");
 	}
 
 	//LogDebug() << __PRETTY_FUNCTION__ << " 'Populating Temporary Trade Fee Structs of Account & Group'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - Populating Temporary Trade Fee Structs of Account & Group", __PRETTY_FUNCTION__));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - Populating Temporary Trade Fee Structs of Account & Group", __PRETTY_FUNCTION__));
 
 	std::unordered_map<std::string, TradeFees> accountsPlans;
 	std::unordered_map<std::string, TradeFees> firmsPlans;
@@ -112,18 +112,18 @@ void LSL::FeeModule::PlanSelector::populateTradeFees(const std::vector<Account>&
 		else
 		{
 			//LogWarning() << __PRETTY_FUNCTION__ << " 'No Plan For Found For TradeFee id:" << it->id << "'";
-			WARNING_LOG("FeeModule", fmt::format("{} - No Plan For Found For TradeFee id :{}", __PRETTY_FUNCTION__, it->id));
+			//WARNING_LOG("FeeModule", fmt::format("{} - No Plan For Found For TradeFee id :{}", __PRETTY_FUNCTION__, it->id));
 		}
 	}
 
 	//LogDebug() << __PRETTY_FUNCTION__ << " 'Populating m_accountPlans with Accounts & TradeFees'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - Populating m_accountPlans with Accounts & TradeFees", __PRETTY_FUNCTION__));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - Populating m_accountPlans with Accounts & TradeFees", __PRETTY_FUNCTION__));
 	//std::vector<Account> accounts;
 	//DbDataAdapter::getInstance()->dataRetrievedAccounts(accounts);
 
 	// Fill final map that contains the group and account impact combined against the account.
 	//LogDebug() << __PRETTY_FUNCTION__ << " 'Populating m_accountPlans with TradeFees according to Account 1st & Group 2nd'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - Populating m_accountPlans with TradeFees according to Account 1st & Group 2nd", __PRETTY_FUNCTION__));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - Populating m_accountPlans with TradeFees according to Account 1st & Group 2nd", __PRETTY_FUNCTION__));
 	for (auto it = accounts.begin(); it != accounts.end(); ++it)
 	{
 		//Populate Firm Plan Initially in m_accountPlan for the said account
@@ -156,7 +156,7 @@ void  LSL::FeeModule::PlanSelector::populateAdjustedPlans(Adjustment& adjustment
 	std::vector<Plan> plans;
 	DbDataAdapter::getInstance()->RetrieveRelevantPlans(plans, adjustment);
 	//LogDebug() << __PRETTY_FUNCTION__ << " 'TradeFeePlanExecutor: Inserting Retrieved Plans from DB to MAP'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - TradeFeePlanExecutor: Inserting Retrieved Plans from DB to MAP", __PRETTY_FUNCTION__));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - TradeFeePlanExecutor: Inserting Retrieved Plans from DB to MAP", __PRETTY_FUNCTION__));
 	for (std::vector<Plan>::iterator it = plans.begin(); it != plans.end(); ++it)
 	{
 		if (it->feeTypeId == EN_FeeCategoryType_TradeFee || it->feeTypeId == EN_FeeCategoryType_MpidFee) 	// TradeFee = 1, MPIDFee = 3
@@ -170,7 +170,7 @@ void  LSL::FeeModule::PlanSelector::populateAdjustedPlans(Adjustment& adjustment
 void LSL::FeeModule::PlanSelector::populateAdjustedTradeFees(Adjustment& adjustment, std::vector<Account>& accounts)
 {
 	//LogDebug() << __PRETTY_FUNCTION__ << " 'Populating Temporary Trade Fee Structs of Account & Group'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - Populating Temporary Trade Fee Structs of Account & Group", __PRETTY_FUNCTION__));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - Populating Temporary Trade Fee Structs of Account & Group", __PRETTY_FUNCTION__));
 	std::vector<TradeFee> tradeFees;
 	DbDataAdapter::getInstance()->RetrieveRelevantTradeFee(tradeFees, adjustment);
 
@@ -214,13 +214,13 @@ void LSL::FeeModule::PlanSelector::populateAdjustedTradeFees(Adjustment& adjustm
 		else
 		{
 			//LogWarning() << __PRETTY_FUNCTION__ << " 'No Plan For Found For TradeFee id:" << it->id << "'";
-			WARNING_LOG("FeeModule", fmt::format("{} - No Plan For Found For TradeFee id :{}", __PRETTY_FUNCTION__, it->id));
+			//WARNING_LOG("FeeModule", fmt::format("{} - No Plan For Found For TradeFee id :{}", __PRETTY_FUNCTION__, it->id));
 		}
 	}
 
 	// Fill final map that contains the group and account impact combined against the account.
 	//LogDebug()s __PRETTY_FUNCTION__ << " 'Populating m_accountPlans with TradeFees according to Account 1st & Group 2nd'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - Populating m_accountPlans with TradeFees according to Account 1st & Group 2nd", __PRETTY_FUNCTION__));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - Populating m_accountPlans with TradeFees according to Account 1st & Group 2nd", __PRETTY_FUNCTION__));
 	for (std::vector<Account>::iterator it = accounts.begin(); it != accounts.end(); ++it)
 	{
 		//Populate Firm Plan Initially in m_accountPlan for the said account
@@ -253,23 +253,23 @@ void LSL::FeeModule::PlanSelector::finish()
 	m_accountPlans.clear();
 	m_plans.clear();
 	//LogInfo() << __PRETTY_FUNCTION__ << " 'Finished Successfully'";
-	INFO_LOG("FeeModule", fmt::format("{} - Finished Successfully", __PRETTY_FUNCTION__));
+	//INFO_LOG("FeeModule", fmt::format("{} - Finished Successfully", __PRETTY_FUNCTION__));
 }
 
 
 const TradeFees LSL::FeeModule::PlanSelector::GetTradeFees(const std::string& AccountId)
 {
 	//LogDebug() << __PRETTY_FUNCTION__ << " 'Retrieving Trade Fees Details Related To AccountID " << AccountId << "'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - Retrieving Trade Fees Details Related To AccountID :{}", __PRETTY_FUNCTION__, AccountId));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - Retrieving Trade Fees Details Related To AccountID :{}", __PRETTY_FUNCTION__, AccountId));
 	TradeFeesMap::iterator it = m_accountPlans.find(AccountId);
 	if (it == m_accountPlans.end())
 	{
 		//LogDebug() << __PRETTY_FUNCTION__ << " 'Couldn't Find Trade Fee Plan for Account: " << AccountId << "'";
-		DEBUG_LOG("FeeModule", fmt::format("{} - Couldn't Find Trade Fee Plan for Account :{}", __PRETTY_FUNCTION__, AccountId));
+		//DEBUG_LOG("FeeModule", fmt::format("{} - Couldn't Find Trade Fee Plan for Account :{}", __PRETTY_FUNCTION__, AccountId));
 		return TradeFees();
 	}
 	//LogDebug() << __PRETTY_FUNCTION__ << " 'Trade Fee Plan Found for Account: " << AccountId << "'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - Trade Fee Plan Found for Account :{}", __PRETTY_FUNCTION__, AccountId));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - Trade Fee Plan Found for Account :{}", __PRETTY_FUNCTION__, AccountId));
 	return it->second;
 }
 
@@ -277,24 +277,24 @@ const TradeFees LSL::FeeModule::PlanSelector::GetTradeFees(const std::string& Ac
 const PlansMap& LSL::FeeModule::PlanSelector::GetPlans()
 {
 	//LogDebug() << __PRETTY_FUNCTION__ << " 'Retrieving Plans'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - Retrieving Plans", __PRETTY_FUNCTION__));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - Retrieving Plans", __PRETTY_FUNCTION__));
 	return m_plans;
 }
 
 const TradeFees LSL::FeeModule::PlanSelector::GetMPIDFees(const std::string& MpId)
 {
 	//LogDebug() << __PRETTY_FUNCTION__ << " 'Retrieving MPID TradeFee of :" << MpId << "'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - Retrieving MPID TradeFee of :{}", __PRETTY_FUNCTION__, MpId));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - Retrieving MPID TradeFee of :{}", __PRETTY_FUNCTION__, MpId));
 
 	TradeFeesMap::iterator it = m_mpidPlans.find(MpId);
 	if (it == m_mpidPlans.end())
 	{
 		//LogDebug() << __PRETTY_FUNCTION__ << " 'Couldn't Find Trade Fee for MPID: " << MpId << "'";
-		DEBUG_LOG("FeeModule", fmt::format("{} - Couldn't Find Trade Fee for MPID: {}", __PRETTY_FUNCTION__, MpId));
+		//DEBUG_LOG("FeeModule", fmt::format("{} - Couldn't Find Trade Fee for MPID: {}", __PRETTY_FUNCTION__, MpId));
 		return TradeFees();
 	}
 	//LogDebug() << __PRETTY_FUNCTION__ << " 'Trade Fee Found for MPID: " << MpId << "'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - Trade Fee Found for MPID :{}", __PRETTY_FUNCTION__, MpId));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - Trade Fee Found for MPID :{}", __PRETTY_FUNCTION__, MpId));
 	return it->second;
 }
 

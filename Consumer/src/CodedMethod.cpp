@@ -34,7 +34,7 @@ FuncEnum  CodedMethod::get_name(std::string func_name)
 CodedMethod::CodedMethod(std::string& formulaJSON)
 {
 	//LogDebug() << __PRETTY_FUNCTION__ << " Parsing JSON to get Coded Method FunctionName'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - Parsing JSON to get Coded Method FunctionName", __PRETTY_FUNCTION__));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - Parsing JSON to get Coded Method FunctionName", __PRETTY_FUNCTION__));
 	method_ptr.insert({ EN_FUNC_TAF_PLAN, Coded::TAF::TAFplan });
 	method_ptr.insert({ EN_FUNC_VCSK_ECN, Coded::VCSK::vcskECN });
 	method_ptr.insert({ EN_FUNC_VCSK_COMM,Coded::VCSK::vcskCommission });
@@ -62,7 +62,7 @@ void CodedMethod::parse_json(std::string& formula)
 	if (formula.empty())
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'JSON Formula Is Empty'";
-		WARNING_LOG("FeeModule", fmt::format("{} - JSON Formula Is Empty", __PRETTY_FUNCTION__));
+		//WARNING_LOG("FeeModule", fmt::format("{} - JSON Formula Is Empty", __PRETTY_FUNCTION__));
 		throw ParsingException("Empty Coded Formula");
 	}
 	
@@ -72,7 +72,7 @@ void CodedMethod::parse_json(std::string& formula)
 	if (document.HasParseError())
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'JSON Formula Parsing Error'";
-		WARNING_LOG("FeeModule", fmt::format("{} - JSON Formula Parsing Error", __PRETTY_FUNCTION__));
+		//WARNING_LOG("FeeModule", fmt::format("{} - JSON Formula Parsing Error", __PRETTY_FUNCTION__));
 		throw ParsingException("Unable to Parse Coded Formula");
 	}
 	method_name = "";
@@ -86,7 +86,7 @@ void CodedMethod::parse_json(std::string& formula)
 	else
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'JSON Formula Parsing Error'";
-		WARNING_LOG("FeeModule", fmt::format("{} - JSON Formula Parsing Error", __PRETTY_FUNCTION__));
+		//WARNING_LOG("FeeModule", fmt::format("{} - JSON Formula Parsing Error", __PRETTY_FUNCTION__));
 		throw ParsingException("Coded Member Not Found in Formula");
 	}
 }

@@ -45,7 +45,7 @@ std::string BulkInserter::getDate()
 BulkInserter::BulkInserter(const std::string& conStr, const std::string& insertDir, int chunkSize, const std::string workerSize, int connPoolSize) : insertDirectory(insertDir), m_chunkSize(chunkSize), workerSize(workerSize)
 {
 	//LogWarning() << __PRETTY_FUNCTION__ << " 'BULK QUERY CHUNK SIZE: " << m_chunkSize << "'";
-	//WARNING_LOG("FeeModule", fmt::format("{} - BULK QUERY CHUNK SIZE:{}", __PRETTY_FUNCTION__, m_chunkSize));
+	////WARNING_LOG("FeeModule", fmt::format("{} - BULK QUERY CHUNK SIZE:{}", __PRETTY_FUNCTION__, m_chunkSize));
 	try
 	{
 		connectionStringParsed = parseConnectionString(conStr);
@@ -57,7 +57,7 @@ BulkInserter::BulkInserter(const std::string& conStr, const std::string& insertD
 	catch (std::exception& e)
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ <<  " '" << e.what() << "'";
-		//WARNING_LOG("FeeModule", fmt::format("{} - {}", __PRETTY_FUNCTION__, e.what()));
+		////WARNING_LOG("FeeModule", fmt::format("{} - {}", __PRETTY_FUNCTION__, e.what()));
 		throw std::exception("DB Connection Failed");
 	}
 
@@ -70,7 +70,7 @@ BulkInserter::BulkInserter(const std::string& conStr, const std::string& insertD
 		{
 			// Directory created successfully
 			//LogWarning() << __PRETTY_FUNCTION__ << " '" << "Bulk Directory Creation Failed" << "'";
-			// WARNING_LOG("FeeModule", fmt::format("{} - Bulk Directory Creation Failed", __PRETTY_FUNCTION__));
+			// //WARNING_LOG("FeeModule", fmt::format("{} - Bulk Directory Creation Failed", __PRETTY_FUNCTION__));
 			throw std::exception("Bulk Directory Creation Failed");
 		}
 	}
@@ -173,7 +173,7 @@ int BulkInserter::dbConnect()
 		else 
 		{
 			
-			WARNING_LOG("FeeModule", fmt::format("{} - Failed to initialize connection in the pool:{}", __PRETTY_FUNCTION__, PQerrorMessage(connection)));
+			//WARNING_LOG("FeeModule", fmt::format("{} - Failed to initialize connection in the pool:{}", __PRETTY_FUNCTION__, PQerrorMessage(connection)));
 			PQfinish(connection);
 			return 1;
 		}
@@ -185,7 +185,7 @@ int BulkInserter::setWorkerMemoryForDBConnections(const std::string query)
 		PGresult* res = PQexec(conn, query.c_str());
 
 		if (PQresultStatus(res) != PGRES_COMMAND_OK) {
-			WARNING_LOG("FeeModule", fmt::format("{} - SET work_mem failed: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
+			//WARNING_LOG("FeeModule", fmt::format("{} - SET work_mem failed: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
 			PQclear(res);
 			releaseConnection(conn);
 			return 1;
@@ -202,7 +202,7 @@ int BulkInserter::fetch_temp_joined_data_pg(const std::string& partial_values,co
 	
 	PGconn* conn = getConnection();
 	if (!conn) {
-		WARNING_LOG("FeeModule", "Failed to get DB connection.");
+		//WARNING_LOG("FeeModule", "Failed to get DB connection.");
 		return 1;
 	}
 
@@ -210,7 +210,7 @@ int BulkInserter::fetch_temp_joined_data_pg(const std::string& partial_values,co
 	PGresult* res = PQexec(conn, "BEGIN;");
 	if (PQresultStatus(res) != PGRES_COMMAND_OK)
 	{
-		WARNING_LOG("FeeModule", fmt::format("BEGIN failed: {}", PQerrorMessage(conn)));
+		//WARNING_LOG("FeeModule", fmt::format("BEGIN failed: {}", PQerrorMessage(conn)));
 		PQclear(res);
 		releaseConnection(conn);
 		return 1;
@@ -233,7 +233,7 @@ int BulkInserter::fetch_temp_joined_data_pg(const std::string& partial_values,co
 	res = PQexec(conn, sql.c_str());
 	if (PQresultStatus(res) != PGRES_TUPLES_OK)
 	{
-		WARNING_LOG("FeeModule", fmt::format("Batch SQL failed: {}", PQerrorMessage(conn)));
+		//WARNING_LOG("FeeModule", fmt::format("Batch SQL failed: {}", PQerrorMessage(conn)));
 		PQclear(res);
 		PQexec(conn, "ROLLBACK;");
 		releaseConnection(conn);
@@ -261,7 +261,7 @@ int BulkInserter::fetch_temp_joined_data_pg(const std::string& partial_values,co
 	res = PQexec(conn, "COMMIT;");
 	if (PQresultStatus(res) != PGRES_COMMAND_OK)
 	{
-		WARNING_LOG("FeeModule", fmt::format("COMMIT failed: {}", PQerrorMessage(conn)));
+		//WARNING_LOG("FeeModule", fmt::format("COMMIT failed: {}", PQerrorMessage(conn)));
 		PQclear(res);
 		releaseConnection(conn);
 		return 1;
@@ -286,18 +286,18 @@ int BulkInserter::executeQuery(const std::string& query)
 	if (status == PGRES_COMMAND_OK) {
 		int affected = atoi(PQcmdTuples(res)); // number of rows affected
 		if (affected == 0) {
-			INFO_LOG("FeeModule", fmt::format("{} - Successfully Executed But No record found: {}",
-				__PRETTY_FUNCTION__, query));
+			//INFO_LOG("FeeModule", fmt::format("{} - Successfully Executed But No record found: {}",
+				//__PRETTY_FUNCTION__, query));
     }
 		else {
-			INFO_LOG("FeeModule", fmt::format("{} - Successfully Executed {} rows: {}",
-				__PRETTY_FUNCTION__, affected, query));
+			//INFO_LOG("FeeModule", fmt::format("{} - Successfully Executed {} rows: {}",
+				//__PRETTY_FUNCTION__, affected, query));
 }
 		ret = SQL_SUCCESS;
 	}
 	else {
-		WARNING_LOG("FeeModule", fmt::format("{} - Query Failed: {} => {}",
-			__PRETTY_FUNCTION__, query, PQerrorMessage(conn)));
+		//WARNING_LOG("FeeModule", fmt::format("{} - Query Failed: {} => {}",
+			//__PRETTY_FUNCTION__, query, PQerrorMessage(conn)));
 	}
 
 	PQclear(res);
@@ -333,8 +333,8 @@ int BulkInserter::fetchQuery(const std::string& query, QueryResult& result)
 		return result.status; // stop after first successful connection
 	}
 	else {
-		WARNING_LOG("FeeModule", fmt::format("{} - Query Failed: {} => {}",
-			__PRETTY_FUNCTION__, query, PQerrorMessage(conn)));
+		//WARNING_LOG("FeeModule", fmt::format("{} - Query Failed: {} => {}",
+			//__PRETTY_FUNCTION__, query, PQerrorMessage(conn)));
 	}
 
 	PQclear(res);
@@ -372,13 +372,14 @@ int BulkInserter::insertFromCSV(std::vector<std::string>& csvDataVector, const s
 	}
 	int err = 0;
 	std::string query = fmt::format("COPY \"{}\" ({}) FROM STDIN WITH (FORMAT csv)", tableName, columns);
+	//std::string query = "COPY \"" + tableName + "\" (" + columns + ") FROM STDIN WITH (FORMAT csv)";
 	INFO_LOG("FeeModule", fmt::format("{} - Copy Command For Table : {}", __PRETTY_FUNCTION__, tableName));
 
 	// Begin transaction
 	PGresult* res = PQexec(conn, "BEGIN");
 	if (PQresultStatus(res) != PGRES_COMMAND_OK)
 	{
-		WARNING_LOG("FeeModule", fmt::format("{} - BEGIN failed: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
+		//WARNING_LOG("FeeModule", fmt::format("{} - BEGIN failed: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
 		PQclear(res);
 		PQfinish(conn);
 		return 1;
@@ -420,7 +421,7 @@ int BulkInserter::insertFromCSV(std::vector<std::string>& csvDataVector, const s
 				PQfinish(conn);
 				return 1;
 			}
-			INFO_LOG("FeeModule", fmt::format("{} - COPY DATA SENDING TO BUFFER RESULT: {}", __PRETTY_FUNCTION__, result));
+			//INFO_LOG("FeeModule", fmt::format("{} - COPY DATA SENDING TO BUFFER RESULT: {}", __PRETTY_FUNCTION__, result));
 			int flushStatus;
 			while ((flushStatus = PQflush(conn)) == 1) {
 				std::this_thread::sleep_for(std::chrono::milliseconds(10));
@@ -453,7 +454,7 @@ int BulkInserter::insertFromCSV(std::vector<std::string>& csvDataVector, const s
 	{
 		if (PQresultStatus(res) != PGRES_COMMAND_OK)
 		{
-			WARNING_LOG("FeeModule", fmt::format("{} - COPY failed: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
+			//WARNING_LOG("FeeModule", fmt::format("{} - COPY failed: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
 			copyFailed = true;
 		}
 		PQclear(res);
@@ -467,7 +468,7 @@ int BulkInserter::insertFromCSV(std::vector<std::string>& csvDataVector, const s
 	res = PQexec(conn, "COMMIT");
 	if (PQresultStatus(res) != PGRES_COMMAND_OK)
 	{
-		WARNING_LOG("FeeModule", fmt::format("{} - COMMIT failed: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
+		//WARNING_LOG("FeeModule", fmt::format("{} - COMMIT failed: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
 		PQclear(res);
 		PQfinish(conn);
 		return 1;
@@ -510,14 +511,19 @@ UpdateClause BulkInserter::generateUpdateSetWithWhere(const std::string& tableNa
 		if (uniqueSet.count(token)) continue;
 
 		// Add to SET clause ("Col" = EXCLUDED."Col")
-		setParts.push_back(
-			fmt::format("\"{0}\" = EXCLUDED.\"{0}\"", token)
-		);
+		//setParts.push_back(
+		//	fmt::format("\"{0}\" = EXCLUDED.\"{0}\"", token)
+		//);
+		setParts.push_back("\"" + token + "\" = EXCLUDED.\"" + token + "\"");
 
 		// Add to WHERE clause (ONLY updates if value changed)
+		//whereParts.push_back(
+		//	fmt::format("\"{0}\".\"{1}\" IS DISTINCT FROM EXCLUDED.\"{1}\"",
+		//		tableName, token)
+		//);
 		whereParts.push_back(
-			fmt::format("\"{0}\".\"{1}\" IS DISTINCT FROM EXCLUDED.\"{1}\"",
-				tableName, token)
+			"\"" + tableName + "\".\"" + token +
+			"\" IS DISTINCT FROM EXCLUDED.\"" + token + "\""
 		);
 	}
 
@@ -532,14 +538,14 @@ int BulkInserter::upsertFromCSV(std::vector<std::string>& csvDataVector,const st
 {
 	PGconn* conn = PQconnectdb(connectionStringParsed.c_str());
 	if (PQstatus(conn) != CONNECTION_OK) {
-		INFO_LOG("FeeModule", fmt::format("{} - Connection failed: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
+		//INFO_LOG("FeeModule", fmt::format("{} - Connection failed: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
 		PQfinish(conn);
 		return 1;
 	}
 
 	PGresult* res = PQexec(conn, "BEGIN");
 	if (PQresultStatus(res) != PGRES_COMMAND_OK) {
-		WARNING_LOG("FeeModule", fmt::format("{} - BEGIN failed: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
+		//WARNING_LOG("FeeModule", fmt::format("{} - BEGIN failed: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
 		PQclear(res);
 		PQfinish(conn);
 		return 1;
@@ -547,13 +553,10 @@ int BulkInserter::upsertFromCSV(std::vector<std::string>& csvDataVector,const st
 	PQclear(res);
 
 	// 1) Create temp staging table
-	std::string createTemp = fmt::format(
-		"CREATE TEMP TABLE staging_{0} (LIKE \"{0}\" INCLUDING ALL) ON COMMIT DROP;",
-		tableName
-	);
+	std::string createTemp = "CREATE TEMP TABLE staging_" + tableName + " (LIKE \"" + tableName + "\" INCLUDING ALL) ON COMMIT DROP;";
 	res = PQexec(conn, createTemp.c_str());
 	if (PQresultStatus(res) != PGRES_COMMAND_OK) {
-		WARNING_LOG("FeeModule", fmt::format("{} - CREATE TEMP failed: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
+		//WARNING_LOG("FeeModule", fmt::format("{} - CREATE TEMP failed: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
 		PQclear(res);
 		PQexec(conn, "ROLLBACK");
 		PQfinish(conn);
@@ -562,10 +565,10 @@ int BulkInserter::upsertFromCSV(std::vector<std::string>& csvDataVector,const st
 	PQclear(res);
 
 	// 2) COPY into staging
-	std::string copyCmd = fmt::format("COPY staging_{0} ({1}) FROM STDIN WITH (FORMAT csv)", tableName, columns);
+	std::string copyCmd = "COPY staging_" + tableName + " (" + columns + ") FROM STDIN WITH (FORMAT csv)";
 	res = PQexec(conn, copyCmd.c_str());
 	if (PQresultStatus(res) != PGRES_COPY_IN) {
-		WARNING_LOG("FeeModule", fmt::format("{} - COPY init failed: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
+		//WARNING_LOG("FeeModule", fmt::format("{} - COPY init failed: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
 		PQclear(res);
 		PQexec(conn, "ROLLBACK");
 		PQfinish(conn);
@@ -579,7 +582,7 @@ int BulkInserter::upsertFromCSV(std::vector<std::string>& csvDataVector,const st
 		chunk += csvDataVector[i] + "\n";
 		if ((i + 1) % m_chunkSize == 0 || i == csvDataVector.size() - 1) {
 			if (PQputCopyData(conn, chunk.c_str(), static_cast<int>(chunk.size())) != 1) {
-				WARNING_LOG("FeeModule", fmt::format("{} - PQputCopyData failed: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
+				//WARNING_LOG("FeeModule", fmt::format("{} - PQputCopyData failed: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
 				PQputCopyEnd(conn, "client error");
 				PQexec(conn, "ROLLBACK");
 				PQfinish(conn);
@@ -589,7 +592,7 @@ int BulkInserter::upsertFromCSV(std::vector<std::string>& csvDataVector,const st
 			while ((flushStatus = PQflush(conn)) == 1)
 				std::this_thread::sleep_for(std::chrono::milliseconds(10));
 			if (flushStatus == -1) {
-				WARNING_LOG("FeeModule", fmt::format("{} - PQflush I/O failed: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
+				//WARNING_LOG("FeeModule", fmt::format("{} - PQflush I/O failed: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
 				PQputCopyEnd(conn, "client flush error");
 				PQexec(conn, "ROLLBACK");
 				PQfinish(conn);
@@ -600,7 +603,7 @@ int BulkInserter::upsertFromCSV(std::vector<std::string>& csvDataVector,const st
 	}
 
 	if (PQputCopyEnd(conn, NULL) != 1) {
-		WARNING_LOG("FeeModule", fmt::format("{} - PQputCopyEnd failed: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
+		//WARNING_LOG("FeeModule", fmt::format("{} - PQputCopyEnd failed: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
 		PQexec(conn, "ROLLBACK");
 		PQfinish(conn);
 		return 1;
@@ -608,7 +611,7 @@ int BulkInserter::upsertFromCSV(std::vector<std::string>& csvDataVector,const st
 
 	while ((res = PQgetResult(conn)) != NULL) {
 		if (PQresultStatus(res) != PGRES_COMMAND_OK) {
-			WARNING_LOG("FeeModule", fmt::format("{} - COPY error: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
+			//WARNING_LOG("FeeModule", fmt::format("{} - COPY error: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
 			PQclear(res);
 			PQexec(conn, "ROLLBACK");
 			PQfinish(conn);
@@ -621,9 +624,9 @@ int BulkInserter::upsertFromCSV(std::vector<std::string>& csvDataVector,const st
 	UpdateClause uc = generateUpdateSetWithWhere(tableName,columns, uniqueColsQuoted);
 
 	// Count rows in staging
-	res = PQexec(conn, fmt::format("SELECT COUNT(*) FROM staging_{}", tableName).c_str());
+	res = PQexec(conn, ("SELECT COUNT(*) FROM staging_" + tableName).c_str());
 	if (PQresultStatus(res) != PGRES_TUPLES_OK) {
-		WARNING_LOG("FeeModule", fmt::format("{} - COUNT staging failed: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
+		//WARNING_LOG("FeeModule", fmt::format("{} - COUNT staging failed: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
 		PQclear(res);
 		PQexec(conn, "ROLLBACK");
 		PQfinish(conn);
@@ -633,24 +636,18 @@ int BulkInserter::upsertFromCSV(std::vector<std::string>& csvDataVector,const st
 	PQclear(res);
 
 	for (long offset = 0; offset < totalRows; offset += batchSize) {
-		std::string batchSql = fmt::format(
-			"INSERT INTO \"{0}\" ({1}) "
-			"SELECT {1} FROM staging_{0} "
-			"ORDER BY ctid LIMIT {2} OFFSET {3} "
-			"ON CONFLICT ({4}) DO UPDATE SET {5} "
-			"WHERE {6};",
-			tableName,
-			columns,
-			batchSize,
-			offset,
-			uniqueColsQuoted,
-			uc.setClause,
-			uc.whereClause
-		);
+		std::string batchSql =
+			"INSERT INTO \"" + tableName + "\" (" + columns + ") "
+			"SELECT " + columns + " FROM staging_" + tableName + " "
+			"ORDER BY ctid LIMIT " + std::to_string(batchSize) +
+			" OFFSET " + std::to_string(offset) + " "
+			"ON CONFLICT (" + uniqueColsQuoted + ") DO UPDATE SET " +
+			uc.setClause + " "
+			"WHERE " + uc.whereClause + ";";
 
 		res = PQexec(conn, batchSql.c_str());
 		if (PQresultStatus(res) != PGRES_COMMAND_OK) {
-			WARNING_LOG("FeeModule", fmt::format("{} - UPSERT batch failed: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
+			//WARNING_LOG("FeeModule", fmt::format("{} - UPSERT batch failed: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
 			PQclear(res);
 			PQexec(conn, "ROLLBACK");
 			PQfinish(conn);
@@ -663,7 +660,7 @@ int BulkInserter::upsertFromCSV(std::vector<std::string>& csvDataVector,const st
 	// 4) Commit transaction
 	res = PQexec(conn, "COMMIT");
 	if (PQresultStatus(res) != PGRES_COMMAND_OK) {
-		WARNING_LOG("FeeModule", fmt::format("{} - COMMIT failed: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
+		//WARNING_LOG("FeeModule", fmt::format("{} - COMMIT failed: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
 		PQclear(res);
 		PQexec(conn, "ROLLBACK");
 		PQfinish(conn);
@@ -696,7 +693,7 @@ int BulkInserter::prepareQuery(const std::string& query)
 	PGresult* beginTransactionResult = PQexec(conn, "BEGIN");
 	if (PQresultStatus(beginTransactionResult) != PGRES_COMMAND_OK) {
 		//LogWarning() << "BEGIN command failed: " << PQerrorMessage(conn) << std::endl;
-		WARNING_LOG("FeeModule", fmt::format("{} - BEGIN command failed:{}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
+		//WARNING_LOG("FeeModule", fmt::format("{} - BEGIN command failed:{}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
 		PQclear(beginTransactionResult);
 			releaseConnection(conn);
 		return 1;
@@ -707,7 +704,7 @@ int BulkInserter::prepareQuery(const std::string& query)
 	if (PQresultStatus(copyResult) != PGRES_COPY_IN)
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'COPY command initialization failed: " << PQerrorMessage(conn) << "'";
-		WARNING_LOG("FeeModule", fmt::format("{} - COPY command initialization failed:{}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
+		//WARNING_LOG("FeeModule", fmt::format("{} - COPY command initialization failed:{}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
 		PQclear(copyResult);
 		releaseConnection(conn);
 		return 1;
@@ -724,13 +721,13 @@ void BulkInserter::writeFile(const std::string& filename, const std::string& con
 	if (file.fail())
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'Unable to write to Bulk Insertion File: " << filename << "'";
-		WARNING_LOG("FeeModule", fmt::format("{} - Unable to write to Bulk Insertion File:{}", __PRETTY_FUNCTION__, filename));
+		//WARNING_LOG("FeeModule", fmt::format("{} - Unable to write to Bulk Insertion File:{}", __PRETTY_FUNCTION__, filename));
 		return;
 	}
 
 	file << headers << "\n" << content;
 	//LogInfo() << __PRETTY_FUNCTION__ << " 'Successfully wrote to Bulk Insertion File: " << filename << "'";
-	INFO_LOG("FeeModule", fmt::format("{} - Successfully wrote to Bulk Insertion File: {}", __PRETTY_FUNCTION__, filename));
+	//INFO_LOG("FeeModule", fmt::format("{} - Successfully wrote to Bulk Insertion File: {}", __PRETTY_FUNCTION__, filename));
 }
 
 int BulkInserter::executeCopyStmt(std::string &queryData)
@@ -743,7 +740,7 @@ int BulkInserter::executeCopyStmt(std::string &queryData)
 	if (result != 1)
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'Failed to write data to COPY command: " << PQerrorMessage(conn) << "'";
-		WARNING_LOG("FeeModule", fmt::format("{} - Failed to write data to COPY command:{}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
+		//WARNING_LOG("FeeModule", fmt::format("{} - Failed to write data to COPY command:{}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
 		releaseConnection(conn);
 		return 1;
 	}
@@ -754,7 +751,7 @@ int BulkInserter::executeCopyStmt(std::string &queryData)
 	if (result != 1)
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'Failed to signal the end of data: " << PQerrorMessage(conn) << "'";
-		WARNING_LOG("FeeModule", fmt::format("{} - Failed to signal the end of data: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
+		//WARNING_LOG("FeeModule", fmt::format("{} - Failed to signal the end of data: {}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
 		releaseConnection(conn);
 		return 1;
 	}
@@ -767,7 +764,7 @@ int BulkInserter::executeCopyStmt(std::string &queryData)
 		if (copyStatus != PGRES_COMMAND_OK)
 		{
 			//LogWarning() << __PRETTY_FUNCTION__ << " 'COPY command failed: " << PQerrorMessage(conn) << "'" << "'";
-			WARNING_LOG("FeeModule", fmt::format("{} - COPY command failed:{}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
+			//WARNING_LOG("FeeModule", fmt::format("{} - COPY command failed:{}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
 			PQclear(copyResult);
 			releaseConnection(conn);
 			return 1;
@@ -780,7 +777,7 @@ int BulkInserter::executeCopyStmt(std::string &queryData)
 	if (PQresultStatus(commitResult) != PGRES_COMMAND_OK)
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << "COMMIT command failed: " << PQerrorMessage(conn) << std::endl;
-		WARNING_LOG("FeeModule", fmt::format("{} - COMMIT command failed:{}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
+		//WARNING_LOG("FeeModule", fmt::format("{} - COMMIT command failed:{}", __PRETTY_FUNCTION__, PQerrorMessage(conn)));
 		releaseConnection(conn);
 		return 1;
 	}
@@ -800,7 +797,7 @@ int BulkInserter::RetrieveData(const std::string& query, std::vector<std::vector
 	PGresult* result = PQexec(conn, query.c_str());
 	if (PQresultStatus(result) != PGRES_TUPLES_OK) {
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'Query execution failed: " << PQresultErrorMessage(result) << std::endl;
-		WARNING_LOG("FeeModule", fmt::format("{} - Query execution failed:{}", __PRETTY_FUNCTION__, PQresultErrorMessage(result)));
+		//WARNING_LOG("FeeModule", fmt::format("{} - Query execution failed:{}", __PRETTY_FUNCTION__, PQresultErrorMessage(result)));
 		PQclear(result);
 		releaseConnection(conn);
 		return 1;
@@ -855,7 +852,7 @@ void BulkInserter::cancelAndCloseConnection(PGconn*& conn)
 	}
 	catch (const std::exception& e)
 	{
-		WARNING_LOG("FeeModule", fmt::format("{} - Exception while closing a connection: {}", __PRETTY_FUNCTION__, e.what()));
+		//WARNING_LOG("FeeModule", fmt::format("{} - Exception while closing a connection: {}", __PRETTY_FUNCTION__, e.what()));
 	}
 	conn = nullptr;
 }

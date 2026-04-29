@@ -136,7 +136,7 @@ void StaticDataManager::MakeDropCopyOrders(std::vector<std::vector<std::string>>
 				if (isRepeating(Data.uniqueId))
 				{
 					//LogWarning() << "Repeating Order : " << Data.uniqueId;
-					WARNING_LOG("FCM-Engine", fmt::format("{} - Repeating Order :{} ", __PRETTY_FUNCTION__, Data.uniqueId));
+					//WARNING_LOG("FCM-Engine", fmt::format("{} - Repeating Order :{} ", __PRETTY_FUNCTION__, Data.uniqueId));
 					continue; // Ignoring Duplicate Orders
 				}
 				else
@@ -148,7 +148,7 @@ void StaticDataManager::MakeDropCopyOrders(std::vector<std::vector<std::string>>
 			catch (const std::exception& e)
 			{
 				//LogWarning() << "Make Orders Failed coz of Improper Type or Value in Prop Report!";
-				WARNING_LOG("FCM-Engine", fmt::format("{} - Make Orders Failed coz of Improper Type or Value in Prop Report!", __PRETTY_FUNCTION__));
+				//WARNING_LOG("FCM-Engine", fmt::format("{} - Make Orders Failed coz of Improper Type or Value in Prop Report!", __PRETTY_FUNCTION__));
 				std::cout << "Make Orders Failed coz of Improper Type or Value in Prop Report!" << e.what() << std::endl;
 			}
 		}
@@ -156,8 +156,8 @@ void StaticDataManager::MakeDropCopyOrders(std::vector<std::vector<std::string>>
 	catch (const std::exception& e)
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << e.what();
-		WARNING_LOG("FCM-Engine", fmt::format("{} - {} ", __PRETTY_FUNCTION__, e.what()));
-		throw std::exception(fmt::format("{} - {} ", __PRETTY_FUNCTION__, e.what()).c_str());
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - {} ", __PRETTY_FUNCTION__, e.what()));
+		//throw std::exception(fmt::format("{} - {} ", __PRETTY_FUNCTION__, e.what()).c_str());
 	}
 }
 void StaticDataManager::MakeOrders(std::vector<std::vector<std::string>>& Report, std::priority_queue<OrderExecutionData>& orders, Adjustment& adjustment, const DateResolver& getEffectiveDate)
@@ -240,14 +240,14 @@ void StaticDataManager::MakeOrders(std::vector<std::vector<std::string>>& Report
 					}
 				}
 				catch (const std::exception& ex) {
-					WARNING_LOG("FCM-Engine", fmt::format("{} - Parent Account Do Not Exist", __PRETTY_FUNCTION__));
+					//WARNING_LOG("FCM-Engine", fmt::format("{} - Parent Account Do Not Exist", __PRETTY_FUNCTION__));
 				}
 
 				try {
 					Data.lastMarket = order.at(40);
 				}
 				catch(const std::exception& ex){
-					WARNING_LOG("FCM-Engine", fmt::format("{} - Repeating Order", __PRETTY_FUNCTION__));
+					//WARNING_LOG("FCM-Engine", fmt::format("{} - Repeating Order", __PRETTY_FUNCTION__));
 				}
 				
 				Data.uniqueId = Data.accountValue + "|" + Data.orderId + "|" + Data.executionId + "|" +
@@ -256,7 +256,7 @@ void StaticDataManager::MakeOrders(std::vector<std::vector<std::string>>& Report
 				if (isRepeating(Data.uniqueId))
 				{
 					//LogWarning() << "Repeating Order : " << Data.uniqueId;
-					WARNING_LOG("FCM-Engine", fmt::format("{} - Repeating Order :{} ", __PRETTY_FUNCTION__, Data.uniqueId));
+					//WARNING_LOG("FCM-Engine", fmt::format("{} - Repeating Order :{} ", __PRETTY_FUNCTION__, Data.uniqueId));
 					continue; // Ignoring Duplicate Orders
 				}
 				else
@@ -268,7 +268,7 @@ void StaticDataManager::MakeOrders(std::vector<std::vector<std::string>>& Report
 			catch (const std::exception &e)
 			{
 				//LogWarning() << "Make Orders Failed coz of Improper Type or Value in Prop Report!";
-				WARNING_LOG("FCM-Engine", fmt::format("{} - Make Orders Failed coz of Improper Type or Value in Prop Report!", __PRETTY_FUNCTION__));
+				//WARNING_LOG("FCM-Engine", fmt::format("{} - Make Orders Failed coz of Improper Type or Value in Prop Report!", __PRETTY_FUNCTION__));
 				//std::cout<<"Make Orders Failed coz of Improper Type or Value in Prop Report!" << e.what()<<std::endl;
 			}
 		}
@@ -276,8 +276,8 @@ void StaticDataManager::MakeOrders(std::vector<std::vector<std::string>>& Report
 	catch (const std::exception &e)
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << e.what();
-		WARNING_LOG("FCM-Engine", fmt::format("{} - {} ", __PRETTY_FUNCTION__,e.what()));
-		throw std::exception(fmt::format("{} - {} ", __PRETTY_FUNCTION__,e.what()).c_str());
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - {} ", __PRETTY_FUNCTION__,e.what()));
+		//throw std::exception(fmt::format("{} - {} ", __PRETTY_FUNCTION__,e.what()).c_str());
 	}
 }
 void StaticDataManager::MakeManualOrder(OrderExecutionData& orders, Adjustment& adjustment) {
@@ -616,8 +616,8 @@ int StaticDataManager::CleanAccountTransactDbData(const std::string& date, const
 	catch (const std::exception& ex)
 	{
 		//LogWarning() << "Unable To Delete Data For: " << accountValues << " Coz It doesn't exist";
-		WARNING_LOG("FCM-Engine", fmt::format("{} - Unable To Delete Data For: {} ", __PRETTY_FUNCTION__, ex.what()));
-		throw std::runtime_error(fmt::format("{} - Unable To Delete Data For: {} ", __PRETTY_FUNCTION__, ex.what()));
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - Unable To Delete Data For: {} ", __PRETTY_FUNCTION__, ex.what()));
+		//throw std::runtime_error(fmt::format("{} - Unable To Delete Data For: {} ", __PRETTY_FUNCTION__, ex.what()));
 	}
 }
 int StaticDataManager::CleanAccountTransactDbDataFileName(const std::string& date, std::string& accountValues, const std::string& columnName)
@@ -630,8 +630,8 @@ int StaticDataManager::CleanAccountTransactDbDataFileName(const std::string& dat
 	catch (const std::exception& ex)
 	{
 		//LogWarning() << "Unable To Delete Data For: " << accountValues << " Coz It doesn't exist";
-		WARNING_LOG("FCM-Engine", fmt::format("{} - Unable To Delete Data For: {} ", __PRETTY_FUNCTION__, ex.what()));
-		throw std::runtime_error(fmt::format("{} - Unable To Delete Data For: {} ", __PRETTY_FUNCTION__, ex.what()));
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - Unable To Delete Data For: {} ", __PRETTY_FUNCTION__, ex.what()));
+		//throw std::runtime_error(fmt::format("{} - Unable To Delete Data For: {} ", __PRETTY_FUNCTION__, ex.what()));
 	}
 }
 int StaticDataManager::CleanAccountTransactDbData(const std::string& date, const std::string& accountValues,const std::string& executionId, const std::string& orderId)
@@ -655,7 +655,7 @@ int StaticDataManager::CleanAccountTransactDbData(const std::string& date, const
 	}
 	catch (const std::exception& ex)
 	{
-		WARNING_LOG("FCM-Engine", fmt::format("{} - Error {} ", __PRETTY_FUNCTION__, accountValues));
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - Error {} ", __PRETTY_FUNCTION__, accountValues));
 		return 1;
 	}
 }
@@ -762,15 +762,15 @@ void StaticDataManager::MakeOrdersFromDb(std::vector<std::vector<std::string>>& 
 	catch (const std::exception &e)
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << e.what();
-		WARNING_LOG("FCM-Engine", fmt::format("{} - {} ", __PRETTY_FUNCTION__, e.what()));
-		throw std::exception( fmt::format("{} - {} ", __PRETTY_FUNCTION__, e.what()).c_str());
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - {} ", __PRETTY_FUNCTION__, e.what()));
+		//throw std::exception( fmt::format("{} - {} ", __PRETTY_FUNCTION__, e.what()).c_str());
 	}
 
 	catch (...)
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'Error While Populating OrderExecutionData'";
-		WARNING_LOG("FCM-Engine", fmt::format("{} - Error While Populating OrderExecutionData", __PRETTY_FUNCTION__));
-		throw ParsingException(fmt::format("{} - Error While Populating OrderExecutionData", __PRETTY_FUNCTION__).c_str());
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - Error While Populating OrderExecutionData", __PRETTY_FUNCTION__));
+		//throw ParsingException(fmt::format("{} - Error While Populating OrderExecutionData", __PRETTY_FUNCTION__).c_str());
 	}
 }
 

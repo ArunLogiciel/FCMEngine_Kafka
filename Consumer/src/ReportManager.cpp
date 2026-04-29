@@ -37,7 +37,7 @@ void ReportManager::ParseAllFiles(const std::string& date,const std::string& dir
 	}
 	catch (const std::exception& e)
 	{
-		throw std::runtime_error( fmt::format("{} - {}", __PRETTY_FUNCTION__, e.what()));
+		//throw std::runtime_error( fmt::format("{} - {}", __PRETTY_FUNCTION__, e.what()));
 	}
 }
 
@@ -52,9 +52,9 @@ void ReportManager::ParseCsvFile(const std::string& fileName, size_t length)
 			report.push_back(doc.GetRow<std::string>(i));
 			if (doc.GetRow<std::string>(i).size()<PROP_REPORT_COLUMNS)
 			{
-				WARNING_LOG("FCM-Engine", fmt::format("{} - Inconsistent rows in Report File", __PRETTY_FUNCTION__));
-				WARNING_LOG("FCM-Engine", fmt::format("{} - Inconsistent rows in Report File", fileName.c_str()));
-				throw std::exception(fmt::format("{} - Inconsistent rows in Report File", __PRETTY_FUNCTION__).c_str());
+				//WARNING_LOG("FCM-Engine", fmt::format("{} - Inconsistent rows in Report File", __PRETTY_FUNCTION__));
+				//WARNING_LOG("FCM-Engine", fmt::format("{} - Inconsistent rows in Report File", fileName.c_str()));
+				//throw std::exception(fmt::format("{} - Inconsistent rows in Report File", __PRETTY_FUNCTION__).c_str());
 			}
 			(report.end()-1)->push_back(fileName.substr(length)); // Adding FileName At End of Each Record
 		}
@@ -64,15 +64,15 @@ void ReportManager::ParseCsvFile(const std::string& fileName, size_t length)
 	catch (const std::exception &e)
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << e.what();
-		WARNING_LOG("FCM-Engine", fmt::format("{} - {} ", __PRETTY_FUNCTION__,e.what()));
-		throw std::exception(fmt::format("{} - {} ", __PRETTY_FUNCTION__,e.what()).c_str());
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - {} ", __PRETTY_FUNCTION__,e.what()));
+		//throw std::exception(fmt::format("{} - {} ", __PRETTY_FUNCTION__,e.what()).c_str());
 	}
 
 	catch (...)
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'Failed To Open Report File'";
-		WARNING_LOG("FCM-Engine", fmt::format("{} - Failed To Open Report File", __PRETTY_FUNCTION__));
-		throw std::exception(fmt::format("{} - Failed To Open Report File", __PRETTY_FUNCTION__).c_str());
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - Failed To Open Report File", __PRETTY_FUNCTION__));
+		//throw std::exception(fmt::format("{} - Failed To Open Report File", __PRETTY_FUNCTION__).c_str());
 	}
 }
 void ReportManager::ParseDropFiles(std::vector<std::string>& fileName)
@@ -89,9 +89,9 @@ void ReportManager::ParseDropFiles(std::vector<std::string>& fileName)
 				report.push_back(doc.GetRow<std::string>(i));
 				if (doc.GetRow<std::string>(i).size() < PROP_REPORT_COLUMNS)
 				{
-					WARNING_LOG("FCM-Engine", fmt::format("{} - Inconsistent rows in Report File", __PRETTY_FUNCTION__));
-					WARNING_LOG("FCM-Engine", fmt::format("{} - Inconsistent rows in Report File", file.c_str()));
-					throw std::exception(fmt::format("{} - Inconsistent rows in Report File", __PRETTY_FUNCTION__).c_str());
+					//WARNING_LOG("FCM-Engine", fmt::format("{} - Inconsistent rows in Report File", __PRETTY_FUNCTION__));
+					//WARNING_LOG("FCM-Engine", fmt::format("{} - Inconsistent rows in Report File", file.c_str()));
+					//throw std::exception(fmt::format("{} - Inconsistent rows in Report File", __PRETTY_FUNCTION__).c_str());
 				}
 				(report.end() - 1)->push_back(file);
 				
@@ -104,15 +104,15 @@ void ReportManager::ParseDropFiles(std::vector<std::string>& fileName)
 	catch (const std::exception& e)
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << e.what();
-		WARNING_LOG("FCM-Engine", fmt::format("{} - {} ", __PRETTY_FUNCTION__, e.what()));
-		throw std::exception(fmt::format("{} - {} ", __PRETTY_FUNCTION__, e.what()).c_str());
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - {} ", __PRETTY_FUNCTION__, e.what()));
+		//throw std::exception(fmt::format("{} - {} ", __PRETTY_FUNCTION__, e.what()).c_str());
 	}
 
 	catch (...)
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'Failed To Open Report File'";
-		WARNING_LOG("FCM-Engine", fmt::format("{} - Failed To Open Report File", __PRETTY_FUNCTION__));
-		throw std::exception(fmt::format("{} - Failed To Open Report File", __PRETTY_FUNCTION__).c_str());
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - Failed To Open Report File", __PRETTY_FUNCTION__));
+		//throw std::exception(fmt::format("{} - Failed To Open Report File", __PRETTY_FUNCTION__).c_str());
 	}
 }
 
@@ -125,7 +125,7 @@ std::vector<std::string> ReportManager::SearchFileNamesWithDate(const std::strin
 
 	if (!fs::exists(directoryPath) || !fs::is_directory(directoryPath))
 	{
-		WARNING_LOG("FCM-Engine",fmt::format("Directory not found: {}", directoryPath.string()));
+		//WARNING_LOG("FCM-Engine",fmt::format("Directory not found: {}", directoryPath.string()));
 		return fileNames;
 	}
 
@@ -134,7 +134,7 @@ std::vector<std::string> ReportManager::SearchFileNamesWithDate(const std::strin
 	{
 		if (ec)
 		{
-			WARNING_LOG("FCM-Engine", fmt::format("Iteration error: {}", ec.message()));
+			//WARNING_LOG("FCM-Engine", fmt::format("Iteration error: {}", ec.message()));
 			break;
 		}
 

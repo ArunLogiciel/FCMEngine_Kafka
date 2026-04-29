@@ -8,14 +8,14 @@ void AccountsStore::init()
 	int error = DbDataAdapter::getInstance()->dataRetrievedAccounts(m_accounts);
 	if (error != 0 || m_accounts.empty())
 	{
-		throw std::runtime_error("Unable to Retrieve Accounts");
+		//throw std::runtime_error("Unable to Retrieve Accounts");
 	}
 	populateFirms();
 	populateMpids();
 	populateAccounts();
 
 	//LogInfo() << __PRETTY_FUNCTION__ << " 'Accounts Store Initialized'";
-	INFO_LOG("FeeModule", fmt::format("{} - Accounts Store Initialized", __PRETTY_FUNCTION__));
+	////INFO_LOG("FeeModule", fmt::format("{} - Accounts Store Initialized", __PRETTY_FUNCTION__));
 }
 
 void AccountsStore::init(const Adjustment& adjustment)
@@ -27,7 +27,7 @@ void AccountsStore::init(const Adjustment& adjustment)
 	populateAccounts();
 
 	//LogInfo() << __PRETTY_FUNCTION__ << " 'Accounts Store Initialized'";
-	INFO_LOG("FeeModule", fmt::format("{} - Accounts Store Initialized", __PRETTY_FUNCTION__));
+	////INFO_LOG("FeeModule", fmt::format("{} - Accounts Store Initialized", __PRETTY_FUNCTION__));
 }
 
 void AccountsStore::populateAccounts()
@@ -42,7 +42,7 @@ void AccountsStore::populateAccounts()
 		catch (std::exception& ex)
 		{
 			//LogWarning() << __PRETTY_FUNCTION__ << " 'Unable To Populate Id Against Value:" << ex.what();
-			WARNING_LOG("FeeModule", fmt::format("{} - Unable To Populate Id Against Value:{}", __PRETTY_FUNCTION__, ex.what()));
+			//WARNING_LOG("FeeModule", fmt::format("{} - Unable To Populate Id Against Value:{}", __PRETTY_FUNCTION__, ex.what()));
 		}
 	}
 }
@@ -75,7 +75,7 @@ void AccountsStore::populateFirms()
 		{
 			boothIds.clear();
 			//LogWarning() << __PRETTY_FUNCTION__ << " 'Unable To Populate DFID Against FirmId: " << ex.what();
-			WARNING_LOG("FeeModule", fmt::format("{} - Unable To Populate DFID Against Value:{}", __PRETTY_FUNCTION__, ex.what()));
+			//WARNING_LOG("FeeModule", fmt::format("{} - Unable To Populate DFID Against Value:{}", __PRETTY_FUNCTION__, ex.what()));
 		}
 	}
 }
@@ -94,7 +94,7 @@ void AccountsStore::populateMpids()
 		}
 		catch (std::exception& ex)
 		{
-			WARNING_LOG("FeeModule", fmt::format("{} - Unable To Populate MPID Against Value:{}", __PRETTY_FUNCTION__, ex.what()));
+			//WARNING_LOG("FeeModule", fmt::format("{} - Unable To Populate MPID Against Value:{}", __PRETTY_FUNCTION__, ex.what()));
 		}
 	}
 }
@@ -102,7 +102,7 @@ void AccountsStore::populateMpids()
 std::string AccountsStore::getAccountId(const std::string& name)
 {
 	//LogDebug() << __PRETTY_FUNCTION__ << " 'Getting Account Id Against Name: " << name << "'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - Getting Account Id Against Name:{}", __PRETTY_FUNCTION__, name));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - Getting Account Id Against Name:{}", __PRETTY_FUNCTION__, name));
 	try
 	{
 		return ReverseAccountMap.at(name).id;
@@ -110,7 +110,7 @@ std::string AccountsStore::getAccountId(const std::string& name)
 	catch (...)
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'AccountValue Does Not Exist In Database :" << name << "'";
-		WARNING_LOG("FeeModule", fmt::format("{} - AccountValue Does Not Exist In Database:{}", __PRETTY_FUNCTION__, name));
+		//WARNING_LOG("FeeModule", fmt::format("{} - AccountValue Does Not Exist In Database:{}", __PRETTY_FUNCTION__, name));
 		throw std::exception("Account Does Not Exist");
 	}
 }
@@ -118,7 +118,7 @@ std::string AccountsStore::getAccountId(const std::string& name)
 Account AccountsStore::getAccount(const std::string& id)
 {
 	//LogDebug() << __PRETTY_FUNCTION__ << " 'Getting Account's Data Against Id: " << id << "'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - Getting Account Id Against id:{}", __PRETTY_FUNCTION__, id));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - Getting Account Id Against id:{}", __PRETTY_FUNCTION__, id));
 	try
 	{
 		return AccountMap.at(id);
@@ -126,7 +126,7 @@ Account AccountsStore::getAccount(const std::string& id)
 	catch (...)
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'AccountId Does Not Exist In Database :" << id << "'";
-		WARNING_LOG("FeeModule", fmt::format("{} - AccountId Does Not Exist In Database:{}", __PRETTY_FUNCTION__, id));
+		//WARNING_LOG("FeeModule", fmt::format("{} - AccountId Does Not Exist In Database:{}", __PRETTY_FUNCTION__, id));
 		throw std::exception("Account Does Not Exist");
 	}
 }
@@ -134,7 +134,7 @@ Account AccountsStore::getAccount(const std::string& id)
 std::string AccountsStore::getFirmId(const std::string& name)
 {
 	//LogDebug() << __PRETTY_FUNCTION__ << " 'Getting Firm Id Against Name: " << name << "'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - Getting Firm Id Against Name:{}", __PRETTY_FUNCTION__, name));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - Getting Firm Id Against Name:{}", __PRETTY_FUNCTION__, name));
 	try
 	{
 		return FirmMap.at(name);
@@ -142,7 +142,7 @@ std::string AccountsStore::getFirmId(const std::string& name)
 	catch (...)
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'Firm Does Not Exist In Database :" << name << "'";
-		WARNING_LOG("FeeModule", fmt::format("{} - Firm Does Not Exist In Database:{}", __PRETTY_FUNCTION__, name));
+		//WARNING_LOG("FeeModule", fmt::format("{} - Firm Does Not Exist In Database:{}", __PRETTY_FUNCTION__, name));
 		throw std::exception("Firm Does Not Exist");
 	}
 }
@@ -150,7 +150,7 @@ std::string AccountsStore::getFirmId(const std::string& name)
 std::string AccountsStore::getMpidId(const std::string& name)
 {
 	//LogDebug() << __PRETTY_FUNCTION__ << " 'Getting Mpid Id Against Name: " << name << "'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - Getting Mpid Id Against Name:{}", __PRETTY_FUNCTION__, name));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - Getting Mpid Id Against Name:{}", __PRETTY_FUNCTION__, name));
 	try
 	{
 		return MpidMap.at(name);
@@ -158,7 +158,7 @@ std::string AccountsStore::getMpidId(const std::string& name)
 	catch (...)
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'Mpid Does Not Exist In Database :" << name << "'";
-		WARNING_LOG("FeeModule", fmt::format("{} - Mpid Does Not Exist In Database:{}", __PRETTY_FUNCTION__, name));
+		//WARNING_LOG("FeeModule", fmt::format("{} - Mpid Does Not Exist In Database:{}", __PRETTY_FUNCTION__, name));
 		throw std::exception("Mpid Does Not Exist");
 	}
 }

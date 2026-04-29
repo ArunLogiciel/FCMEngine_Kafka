@@ -1,12 +1,17 @@
 ﻿#include <iostream>
 #include <string>
 #include <sstream>
-//#include "../Consumer/FeeModule/librdkafka/rdkafkacpp.h"
-#include <librdkafka/rdkafkacpp.h>
+#include "../Consumer/FeeModule/librdkafka/rdkafkacpp.h"
+//#include <librdkafka/rdkafkacpp.h>
 #include "../Consumer/FeeModule/businessObjects.h"
 #include "../Consumer/FeeModule/FCMEngine.h"
+#include <filesystem>
+#include "../Consumer/FeeModule/logger/logger.hpp"
 
 
+namespace fs = std::filesystem;
+const std::string configFile = "FCMConfiguration.ini";
+LSL::FeeModule::IniParser setting(configFile);
 void processCommand(const std::string& message) {
     std::cout << "Processing: " << message << std::endl;
 
@@ -23,17 +28,24 @@ void processCommand(const std::string& message) {
             return;
         }
 
-        // 🔥 Simulate your FCMEngine logic
+        // Simulate your FCMEngine logic
         std::cout << "[ENGINE] Loading data for date: " << date << std::endl;
 
-        // TODO:
+        
+        auto tempPath = setting.Get<std::string>("Logging.Path");
+
+        // ensure log directory exists
+        fs::create_directories(fs::path("logs\\stackcalls"));
+
+
+        FCM_Engine engine("FCMConfiguration.ini", 1, date);
+        int err = 1;
+        std::cout << "Engine Initialised: " << std::endl;
         Adjustment adj;
         adj.date = date;
         adj.adjustmentType = EN_Adjustment_Everything;
         adj.workFlowType = EN_WorkFlowType_Ingestion;
-
-        std::cout << "Asjustment Details: " << adj.date << std::endl << adj.adjustmentType << std::endl << adj.workFlowType << std::endl;
-        FCM_Engine engine("FCMConfiguration.ini", 1, date);
+        err = engine.Ingest(adj);
         // readTradeFiles(date)
         // calculateFees()
         // writeToDB()

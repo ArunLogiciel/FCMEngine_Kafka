@@ -83,7 +83,7 @@ namespace LSL
 		void CliModule::init() 
 		{
 			//LogDebug() << __PRETTY_FUNCTION__ << " 'Initializing'";
-			DEBUG_LOG("FeeModule", fmt::format("{} - Initializing", __PRETTY_FUNCTION__));
+			//DEBUG_LOG("FeeModule", fmt::format("{} - Initializing", __PRETTY_FUNCTION__));
 			
 			try
 			{
@@ -93,7 +93,7 @@ namespace LSL
 			catch (std::exception& ex)
 			{
 				//LogWarning() << __PRETTY_FUNCTION__ << " 'Exception: '" << ex.what();
-				WARNING_LOG("FeeModule", fmt::format("{} - Exception:{}", __PRETTY_FUNCTION__, ex.what()));
+				//WARNING_LOG("FeeModule", fmt::format("{} - Exception:{}", __PRETTY_FUNCTION__, ex.what()));
 			}
 		}
 
@@ -103,12 +103,12 @@ namespace LSL
 			{
 				m_scheduler->Stop(); // Must Be Called Otherwise m_scheduler won't stop
 				//LogDebug() << __PRETTY_FUNCTION__ << " 'Finished Successfully'";
-				DEBUG_LOG("FeeModule", fmt::format("{} - Finished Successfully", __PRETTY_FUNCTION__));
+				//DEBUG_LOG("FeeModule", fmt::format("{} - Finished Successfully", __PRETTY_FUNCTION__));
 			}
 			catch (std::exception& ex)
 			{
 				//LogWarning() << __PRETTY_FUNCTION__ << " 'Exception: '" << ex.what();
-				WARNING_LOG("FeeModule", fmt::format("{} - Exception:{}", __PRETTY_FUNCTION__, ex.what()));
+				//WARNING_LOG("FeeModule", fmt::format("{} - Exception:{}", __PRETTY_FUNCTION__, ex.what()));
 			}
 		}
 	}

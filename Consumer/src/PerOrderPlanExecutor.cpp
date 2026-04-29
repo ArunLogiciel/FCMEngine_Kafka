@@ -19,7 +19,7 @@ void LSL::FeeModule::PerOrderPlanExecutor::finish()
 FeeBreakDown LSL::FeeModule::PerOrderPlanExecutor::Execute(Plan plans, OrderExecutionData& data)
 {
 	//LogDebug() << __PRETTY_FUNCTION__ << " 'called'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - called", __PRETTY_FUNCTION__));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - called", __PRETTY_FUNCTION__));
 	std::string key = GetKey(plans, data);
 	const Fee oldOrderFee = m_store.GetExecutorState(plans.planType, key);
 

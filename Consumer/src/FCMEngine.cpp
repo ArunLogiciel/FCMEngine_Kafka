@@ -1,7 +1,7 @@
 ﻿#include "../FeeModule/FCMEngine.h"
 #include <sstream>
 #include <boost/date_time/gregorian/gregorian.hpp>
-//#include "../FeeModule/logger/logger.hpp"
+#include "../FeeModule/logger/logger.hpp"
 #include "../FeeModule/DbDataAdapter.h"
 #include <regex>
 
@@ -81,13 +81,13 @@ void FCM_Engine::calculateFees(std::priority_queue<OrderExecutionData>& ordersDa
 		completed++;
 		if (completed % 5000 == 0)
 		{
-			INFO_LOG("FCM-Engine", fmt::format("{} - {}/{} executions completed", __PRETTY_FUNCTION__, completed, total));
+			//INFO_LOG("FCM-Engine", fmt::format("{} - {}/{} executions completed", __PRETTY_FUNCTION__, completed, total));
 		}
 	}
 
 	if (logflag)
 		std::cout << "Total Executions Counter: " << completed << std::endl;
-	INFO_LOG("FCM-Engine", fmt::format("{} - Total Executions Counter {}", __PRETTY_FUNCTION__, completed));
+	//INFO_LOG("FCM-Engine", fmt::format("{} - Total Executions Counter {}", __PRETTY_FUNCTION__, completed));
 
 }
 void FCM_Engine::calculateFees(std::priority_queue<OrderExecutionData>& ordersData, Adjustment& adjustment)
@@ -105,13 +105,13 @@ void FCM_Engine::calculateFees(std::priority_queue<OrderExecutionData>& ordersDa
 		completed++;
 		if (completed % 5000 == 0)
 		{
-			INFO_LOG("FCM-Engine", fmt::format("{} - {}/{} executions completed", __PRETTY_FUNCTION__, completed, total));
+			//INFO_LOG("FCM-Engine", fmt::format("{} - {}/{} executions completed", __PRETTY_FUNCTION__, completed, total));
 		}
 	}
 
 	if (logflag)
 		std::cout << "Total Executions Counter: " << completed << std::endl;
-	INFO_LOG("FCM-Engine", fmt::format("{} - Total Executions Counter {}", __PRETTY_FUNCTION__, completed));
+	//INFO_LOG("FCM-Engine", fmt::format("{} - Total Executions Counter {}", __PRETTY_FUNCTION__, completed));
 
 }
 void FCM_Engine::init(const std::string& date,const std::optional<std::string>& cdnFilePath)
@@ -123,9 +123,9 @@ void FCM_Engine::init(const std::string& date,const std::optional<std::string>& 
 	}
 	catch (const std::exception& ex)
 	{
-		WARNING_LOG("FCM-Engine",
-			fmt::format("{} - {}", __PRETTY_FUNCTION__, ex.what()));
-		throw std::runtime_error("Engine Failed To Initialize");
+		//WARNING_LOG("FCM-Engine",
+		//	fmt::format("{} - {}", __PRETTY_FUNCTION__, ex.what()));
+		////throw std::runtime_error("Engine Failed To Initialize");
 	}
 
 	try
@@ -154,16 +154,16 @@ void FCM_Engine::init(const std::string& date,const std::optional<std::string>& 
 			reportManager.ParseEODFiles(date);
 		}
 
-		if (!Report.empty())
-		{
-			dataManager.RetrieveExecutedOrderData(Report, date);
-		}
+		//if (!Report.empty())
+		//{
+		//	dataManager.RetrieveExecutedOrderData(Report, date);
+		//}
 	}
 	catch (const std::exception& ex)
 	{
-		WARNING_LOG("FCM-Engine", fmt::format("{} - ERROR OCCURED: {}", __PRETTY_FUNCTION__, ex.what()));
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - ERROR OCCURED: {}", __PRETTY_FUNCTION__, ex.what()));
 
-		throw std::runtime_error(fmt::format("Engine Failed Load Symbol OR Prop Files Properly - {}", ex.what()));
+		//throw std::runtime_error(fmt::format("Engine Failed Load Symbol OR Prop Files Properly - {}", ex.what()));
 	}
 }
 
@@ -191,13 +191,13 @@ void FCM_Engine::init(Adjustment& adjustment)
 	catch (const std::exception &e)
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << e.what();
-		WARNING_LOG("FCM-Engine", fmt::format("{} - {} ", __PRETTY_FUNCTION__, e.what()));
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - {} ", __PRETTY_FUNCTION__, e.what()));
 	}
 	catch (...)
 	{
 		//LogWarning() << __PRETTY_FUNCTION__
 		//	<< " 'Ohh Shoot... Some Unknown Error Occured...";
-		WARNING_LOG("FCM-Engine", fmt::format("{} - Ohh Shoot... Some Unknown Error Occured...", __PRETTY_FUNCTION__));
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - Ohh Shoot... Some Unknown Error Occured...", __PRETTY_FUNCTION__));
 	}
 	
 
@@ -246,9 +246,9 @@ int FCM_Engine::RunBackDateAccounts(Adjustment& adjustment)
 	}
 	catch (const std::exception& ex)
 	{
-		WARNING_LOG("FCM-Engine",
-			fmt::format("{} - {}", __PRETTY_FUNCTION__, ex.what()));
-		throw std::runtime_error("Engine Failed To Initialize");
+		//WARNING_LOG("FCM-Engine",
+		//	fmt::format("{} - {}", __PRETTY_FUNCTION__, ex.what()));
+		////throw std::runtime_error("Engine Failed To Initialize");
 	}
 	try
 	{
@@ -259,9 +259,9 @@ int FCM_Engine::RunBackDateAccounts(Adjustment& adjustment)
 	}
 	catch (const std::exception& ex)
 	{
-		WARNING_LOG("FCM-Engine", fmt::format("{} - ERROR OCCURED: {}", __PRETTY_FUNCTION__, ex.what()));
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - ERROR OCCURED: {}", __PRETTY_FUNCTION__, ex.what()));
 
-		throw std::runtime_error(fmt::format("Engine Failed Load Symbol OR Prop Files Properly - {}", ex.what()));
+		//throw std::runtime_error(fmt::format("Engine Failed Load Symbol OR Prop Files Properly - {}", ex.what()));
 	}
 	adjustment.getStringifiedAccessIds(accountValues);
 
@@ -354,7 +354,7 @@ int FCM_Engine::RunBackDatePlans(Adjustment& adjustment)
 	else
 	{
 		//LogInfo() << __PRETTY_FUNCTION__ << "No Accounts Found To Run Against";
-		INFO_LOG("FCM-Engine", fmt::format("{} - No Accounts Found To Run Against", __PRETTY_FUNCTION__));
+		//INFO_LOG("FCM-Engine", fmt::format("{} - No Accounts Found To Run Against", __PRETTY_FUNCTION__));
 		return 0;
 	}
 }
@@ -385,7 +385,7 @@ int FCM_Engine::RunBackDateFirms(Adjustment& adjustment)
 	else
 	{
 		//LogInfo() << __PRETTY_FUNCTION__ << "No Accounts Found To Run Against";
-		INFO_LOG("FCM-Engine", fmt::format("{} - No Accounts Found To Run Against", __PRETTY_FUNCTION__));
+		//INFO_LOG("FCM-Engine", fmt::format("{} - No Accounts Found To Run Against", __PRETTY_FUNCTION__));
 		return 0;
 	}
 }
@@ -416,7 +416,7 @@ int FCM_Engine::RunBackDateMpids(Adjustment& adjustment)
 	else
 	{
 		//LogInfo() << __PRETTY_FUNCTION__ << "No Accounts Found To Run Against";
-		INFO_LOG("FCM-Engine", fmt::format("{} - No Accounts Found To Run Against", __PRETTY_FUNCTION__));
+		//INFO_LOG("FCM-Engine", fmt::format("{} - No Accounts Found To Run Against", __PRETTY_FUNCTION__));
 		return 0;
 	}
 }
@@ -468,16 +468,16 @@ int FCM_Engine::RunBackDate(Adjustment& adjustment)
 	{
 		finish();
 		//LogWarning() << __PRETTY_FUNCTION__ << e.what();
-		WARNING_LOG("FCM-Engine", fmt::format("{} - {} ", __PRETTY_FUNCTION__, e.what()));
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - {} ", __PRETTY_FUNCTION__, e.what()));
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'Failure: Failed For " << adjustment.date << "'";
-		WARNING_LOG("FCM-Engine", fmt::format("{} - Failure: Failed For: {} ' ", __PRETTY_FUNCTION__, adjustment.date));
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - Failure: Failed For: {} ' ", __PRETTY_FUNCTION__, adjustment.date));
 		throw std::exception(e.what());
 	}
 	catch (...)
 	{
 		finish();
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'Failure: Failed For " << adjustment.date << "'";
-		WARNING_LOG("FCM-Engine", fmt::format("{} - Failure: Failed For: {} ' ", __PRETTY_FUNCTION__, adjustment.date));
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - Failure: Failed For: {} ' ", __PRETTY_FUNCTION__, adjustment.date));
 		throw std::exception("Failed - Unknown Exception Encountered");
 	}
 	return err;
@@ -588,7 +588,7 @@ int FCM_Engine::IngestDateWithCDN(Adjustment& adjustment,std::string& filePath_c
 		else
 		{
 			std::cout << "Data Already Exists" << std::endl;
-			INFO_LOG("FCM-Engine", fmt::format("{} - Data Already Exists", __PRETTY_FUNCTION__));
+			//INFO_LOG("FCM-Engine", fmt::format("{} - Data Already Exists", __PRETTY_FUNCTION__));
 		}
 	//	dataManager.BulkExecuteWorkFlow(); //This method uses insert on conflict on ExecutionData because in normal flows(except EOD and Drop), if data is deleted then it cannot be regenerated
 		dataManager.BulkExecute();
@@ -597,7 +597,7 @@ int FCM_Engine::IngestDateWithCDN(Adjustment& adjustment,std::string& filePath_c
 	}
 	catch (const std::exception& e)
 	{
-		WARNING_LOG("FCM-Engine", fmt::format("{} - {} ", __PRETTY_FUNCTION__, e.what()));
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - {} ", __PRETTY_FUNCTION__, e.what()));
 		err = 1;
 		throw std::exception(e.what());
 	}
@@ -606,7 +606,7 @@ int FCM_Engine::IngestDateWithCDN(Adjustment& adjustment,std::string& filePath_c
 		err = 1;
 		finish();
 		std::cerr << "Failure: Failed For " << adjustment.date << std::endl;
-		WARNING_LOG("FCM-Engine", fmt::format("{} - Failure: Failed For: {} ' ", __PRETTY_FUNCTION__, adjustment.date));
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - Failure: Failed For: {} ' ", __PRETTY_FUNCTION__, adjustment.date));
 	}
 	return err;
 }
@@ -639,7 +639,7 @@ int FCM_Engine::IngestDate(Adjustment& adjustment)
 		else
 		{
 			std::cout<<"Data Already Exists"<<std::endl;
-			INFO_LOG("FCM-Engine", fmt::format("{} - Data Already Exists", __PRETTY_FUNCTION__));
+			//INFO_LOG("FCM-Engine", fmt::format("{} - Data Already Exists", __PRETTY_FUNCTION__));
 		}
 		dataManager.BulkExecute();
 		finish();
@@ -648,7 +648,7 @@ int FCM_Engine::IngestDate(Adjustment& adjustment)
 	catch (const std::exception &e)
 	{
 		// no need to return value here and also no need to call finish becuase the throw will do its magic
-		WARNING_LOG("FCM-Engine", fmt::format("{} - {} ", __PRETTY_FUNCTION__, e.what()));
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - {} ", __PRETTY_FUNCTION__, e.what()));
 		err = 1;
 		throw std::exception(e.what());
 	}
@@ -657,7 +657,7 @@ int FCM_Engine::IngestDate(Adjustment& adjustment)
 		err = 1;
 		finish();
 		std::cerr << "Failure: Failed For " <<adjustment.date<< std::endl;
-		WARNING_LOG("FCM-Engine", fmt::format("{} - Failure: Failed For: {} ' ", __PRETTY_FUNCTION__, adjustment.date));
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - Failure: Failed For: {} ' ", __PRETTY_FUNCTION__, adjustment.date));
 	}
 	return err;
 }
@@ -715,7 +715,7 @@ int FCM_Engine::IngestMultipleAccounts(Adjustment& adjustment)
 	catch (const std::exception &e)
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << e.what();
-		WARNING_LOG("FCM-Engine", fmt::format("{} - {} ", __PRETTY_FUNCTION__, e.what()));
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - {} ", __PRETTY_FUNCTION__, e.what()));
 		err = 1;
 	}
 
@@ -723,7 +723,7 @@ int FCM_Engine::IngestMultipleAccounts(Adjustment& adjustment)
 	{
 		std::cerr << "Failure: Failed For " << adjustment.date << std::endl;
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'Failure: Failed For " << adjustment.date << "'";
-		WARNING_LOG("FCM-Engine", fmt::format("{} - Failure: Failed For: {} ' ", __PRETTY_FUNCTION__, adjustment.date));
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - Failure: Failed For: {} ' ", __PRETTY_FUNCTION__, adjustment.date));
 		err = 1;
 	}
 
@@ -768,7 +768,7 @@ int FCM_Engine::IngestManualAccounts(Adjustment& adjustment)
 	catch (const std::exception& e)
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << e.what();
-		WARNING_LOG("FCM-Engine", fmt::format("{} - {} ", __PRETTY_FUNCTION__, e.what()));
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - {} ", __PRETTY_FUNCTION__, e.what()));
 		err = 1;
 	}
 
@@ -776,7 +776,7 @@ int FCM_Engine::IngestManualAccounts(Adjustment& adjustment)
 	{
 		std::cerr << "Failure: Failed For " << adjustment.date << std::endl;
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'Failure: Failed For " << adjustment.date << "'";
-		WARNING_LOG("FCM-Engine", fmt::format("{} - Failure: Failed For: {} ' ", __PRETTY_FUNCTION__, adjustment.date));
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - Failure: Failed For: {} ' ", __PRETTY_FUNCTION__, adjustment.date));
 		err = 1;
 	}
 
@@ -808,7 +808,7 @@ int FCM_Engine::IngestMultipleMPIDs(Adjustment& adjustment)
 	else
 	{
 		//LogInfo() << __PRETTY_FUNCTION__ << "No Accounts Found To Run Against";
-		INFO_LOG("FCM-Engine", fmt::format("{} - No Accounts Found To Run Against", __PRETTY_FUNCTION__));
+		//INFO_LOG("FCM-Engine", fmt::format("{} - No Accounts Found To Run Against", __PRETTY_FUNCTION__));
 		return 0;
 	}
 }
@@ -864,7 +864,7 @@ int FCM_Engine::IngestMultipleFirms(Adjustment& adjustment)
 	else
 	{
 		//LogInfo() << __PRETTY_FUNCTION__ << "No Accounts Found To Run Against";
-		INFO_LOG("FCM-Engine", fmt::format("{} - No Accounts Found To Run Against", __PRETTY_FUNCTION__));
+		//INFO_LOG("FCM-Engine", fmt::format("{} - No Accounts Found To Run Against", __PRETTY_FUNCTION__));
 		return 0;
 	}
 }
@@ -877,7 +877,7 @@ int FCM_Engine::IngestManualAccount(Adjustment& adjustment)
 	else
 	{
 		//LogInfo() << __PRETTY_FUNCTION__ << "No Accounts Found To Run Against";
-		INFO_LOG("FCM-Engine", fmt::format("{} - No Accounts Found To Run Against", __PRETTY_FUNCTION__));
+		//INFO_LOG("FCM-Engine", fmt::format("{} - No Accounts Found To Run Against", __PRETTY_FUNCTION__));
 		return 0;
 	}
 }
@@ -924,16 +924,16 @@ int FCM_Engine::Ingest(Adjustment& adjustment)
 	{
 		finish();
 		//LogWarning() << __PRETTY_FUNCTION__ << e.what();
-		WARNING_LOG("FCM-Engine", fmt::format("{} - {} ", __PRETTY_FUNCTION__, e.what()));
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - {} ", __PRETTY_FUNCTION__, e.what()));
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'Failure: Failed For " << adjustment.date << "'";
-		WARNING_LOG("FCM-Engine", fmt::format("{} - Failure: Failed For: {} ' ", __PRETTY_FUNCTION__, adjustment.date));
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - Failure: Failed For: {} ' ", __PRETTY_FUNCTION__, adjustment.date));
 		throw std::exception(e.what());
 	}
 	catch (...)
 	{
 		finish();
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'Failure: Failed For " << adjustment.date << "'";
-		WARNING_LOG("FCM-Engine", fmt::format("{} - Failure: Failed For: {} ' ", __PRETTY_FUNCTION__, adjustment.date));
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - Failure: Failed For: {} ' ", __PRETTY_FUNCTION__, adjustment.date));
 		throw std::exception("Failed - Unknown Exception Encountered");
 	}
 	return err;
@@ -964,16 +964,16 @@ int FCM_Engine::RunCDN(Adjustment &adjustment,std::string& filePath)
 	{
 		finish();
 		//LogWarning() << __PRETTY_FUNCTION__ << e.what();
-		WARNING_LOG("FCM-Engine", fmt::format("{} - {} ", __PRETTY_FUNCTION__, e.what()));
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - {} ", __PRETTY_FUNCTION__, e.what()));
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'Failure: Failed For " << adjustment.date << "'";
-		WARNING_LOG("FCM-Engine", fmt::format("{} - Failure: Failed For: {} ' ", __PRETTY_FUNCTION__, adjustment.date));
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - Failure: Failed For: {} ' ", __PRETTY_FUNCTION__, adjustment.date));
 		throw std::exception(e.what());
 	}
 	catch (...)
 	{
 		finish();
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'Failure: Failed For " << adjustment.date << "'";
-		WARNING_LOG("FCM-Engine", fmt::format("{} - Failure: Failed For: {} ' ", __PRETTY_FUNCTION__, adjustment.date));
+		//WARNING_LOG("FCM-Engine", fmt::format("{} - Failure: Failed For: {} ' ", __PRETTY_FUNCTION__, adjustment.date));
 		throw std::exception("Failed - Unknown Exception Encountered");
 	}
 	return err;

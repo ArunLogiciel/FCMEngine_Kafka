@@ -8,7 +8,7 @@ namespace FeeFormula
 {
 	TabularMethod::TabularMethod(std::string& formula)
 	{
-		DEBUG_LOG("FeeModule", fmt::format("{} Initializing Tabular Method", __PRETTY_FUNCTION__));
+		//DEBUG_LOG("FeeModule", fmt::format("{} Initializing Tabular Method", __PRETTY_FUNCTION__));
 		parse_json(formula);
 		make_tree(parsed_formulas);
 	}
@@ -131,7 +131,7 @@ namespace FeeFormula
 
 	void TabularMethod::make_tree(std::vector<std::vector<std::string>>& p_table)
 	{
-		DEBUG_LOG("FeeModule", fmt::format("{} Populating Tabular Method's Tree Data Structure", __PRETTY_FUNCTION__));
+		//DEBUG_LOG("FeeModule", fmt::format("{} Populating Tabular Method's Tree Data Structure", __PRETTY_FUNCTION__));
 		int i = 0;
 		for (const auto& row : p_table)
 		{
@@ -358,13 +358,13 @@ namespace FeeFormula
 			}
 			catch (std::exception& ex)
 			{
-				WARNING_LOG("FeeModule", fmt::format("{} - {}", __PRETTY_FUNCTION__, ex.what()));
-				throw ParsingException(fmt::format("{} - {}", __PRETTY_FUNCTION__, ex.what()).c_str());
+				//WARNING_LOG("FeeModule", fmt::format("{} - {}", __PRETTY_FUNCTION__, ex.what()));
+				//throw ParsingException(fmt::format("{} - {}", __PRETTY_FUNCTION__, ex.what()).c_str());
 				return;
 			}
 			catch (...)
 			{
-				WARNING_LOG("FeeModule", fmt::format("{} - Unable to Parse Tabular Method's Data", __PRETTY_FUNCTION__));
+				//WARNING_LOG("FeeModule", fmt::format("{} - Unable to Parse Tabular Method's Data", __PRETTY_FUNCTION__));
 				throw ParsingException("Unable to Parse Tabular Method's Data");
 				return;
 			}
@@ -395,12 +395,12 @@ namespace FeeFormula
 		}
 		catch (std::exception& ex)
 		{
-			WARNING_LOG("FeeModule", fmt::format("{} - Invalid Fee Received while Parsing:{} ,{}", __PRETTY_FUNCTION__, ex.what(),fee));
+			//WARNING_LOG("FeeModule", fmt::format("{} - Invalid Fee Received while Parsing:{} ,{}", __PRETTY_FUNCTION__, ex.what(),fee));
 		}
 
 		catch (...)
 		{
-			WARNING_LOG("FeeModule", fmt::format("{} - Unable to Parse This Fee: {}", __PRETTY_FUNCTION__,fee));
+			//WARNING_LOG("FeeModule", fmt::format("{} - Unable to Parse This Fee: {}", __PRETTY_FUNCTION__,fee));
 		}
 		fee_per_share_formula fee_formula{ 0,1 };
 		return fee_formula;
@@ -418,7 +418,7 @@ namespace FeeFormula
 			if (!data.HasMember(member.c_str()))
 			{
 				std::string temp = " 'Member of JSON Formula Doesn't Exist: " + member;
-				WARNING_LOG("FeeModule", fmt::format("{} - {}", __PRETTY_FUNCTION__, temp));
+				//WARNING_LOG("FeeModule", fmt::format("{} - {}", __PRETTY_FUNCTION__, temp));
 				throw ParsingException(temp.c_str());
 			}
 		}
@@ -426,12 +426,12 @@ namespace FeeFormula
 
 	void TabularMethod::parse_json(std::string& formula_)
 	{
-		DEBUG_LOG("FeeModule", fmt::format("{} Parsing JSON of Tabular Method", __PRETTY_FUNCTION__));
+		//DEBUG_LOG("FeeModule", fmt::format("{} Parsing JSON of Tabular Method", __PRETTY_FUNCTION__));
 		rapidjson::Document document;
 
 		if (formula_.empty())
 		{
-			WARNING_LOG("FeeModule", fmt::format("{} - JSON Method Is Empty Unable To Parse", __PRETTY_FUNCTION__));
+			//WARNING_LOG("FeeModule", fmt::format("{} - JSON Method Is Empty Unable To Parse", __PRETTY_FUNCTION__));
 			throw ParsingException("JSON Method Is Empty Unable To Parse");
 		}
 
@@ -439,13 +439,13 @@ namespace FeeFormula
 
 		if (document.HasParseError())
 		{
-			WARNING_LOG("FeeModule", fmt::format("{} - Unable to Parse Tabular Formula", __PRETTY_FUNCTION__));
+			//WARNING_LOG("FeeModule", fmt::format("{} - Unable to Parse Tabular Formula", __PRETTY_FUNCTION__));
 			throw ParsingException("Unable to Parse Tabular Formula");
 		}
 
 		if (!document.IsArray())
 		{
-			WARNING_LOG("FeeModule", fmt::format("{} - Unable to Parse Tabular Formula", __PRETTY_FUNCTION__));
+			//WARNING_LOG("FeeModule", fmt::format("{} - Unable to Parse Tabular Formula", __PRETTY_FUNCTION__));
 			throw ParsingException("Unable to Parse Tabular Formula");
 		}
 
@@ -579,7 +579,7 @@ namespace FeeFormula
 
 	result TabularMethod::evaluate(const OrderExecutionData& exec)
 	{
-		DEBUG_LOG("FeeModule", fmt::format("{} Evaluating Fee using Tabular Method", __PRETTY_FUNCTION__));
+		//DEBUG_LOG("FeeModule", fmt::format("{} Evaluating Fee using Tabular Method", __PRETTY_FUNCTION__));
 		return m_tree.evaluate(exec);
 	}
 

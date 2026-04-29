@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
-//#include "../Consumer/FeeModule/librdkafka/rdkafkacpp.h"
-#include <librdkafka/rdkafkacpp.h>
+#include "../Consumer/FeeModule/librdkafka/rdkafkacpp.h"
+//#include <librdkafka/rdkafkacpp.h>
 
 int main() {
     std::string errstr;
@@ -18,7 +18,7 @@ int main() {
     }
 
     std::string topic = "EOD-Jobs";
-    std::string message = "LoadDataOfDate 20260303";
+    std::string message = "LoadDataOfDate 20260428";
 
     // 3. Produce message
     RdKafka::ErrorCode resp = producer->produce(

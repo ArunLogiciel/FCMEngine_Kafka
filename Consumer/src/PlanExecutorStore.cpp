@@ -9,7 +9,7 @@ LSL::FeeModule::PlanExecutorStore::PlanExecutorStore(bool isEngine) : m_isEngine
 void LSL::FeeModule::PlanExecutorStore::init()
 {
 	//LogDebug() << __PRETTY_FUNCTION__ << " 'Initializing'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - Initializing", __PRETTY_FUNCTION__));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - Initializing", __PRETTY_FUNCTION__));
 
 	if (!m_isEngine)
 	{
@@ -19,7 +19,7 @@ void LSL::FeeModule::PlanExecutorStore::init()
 		int error = DbDataAdapter::getInstance()->dataRetrievePlanType(planTypeVect);
 		if (error != 0 || planTypeVect.empty())
 		{
-			throw std::runtime_error("Unable to Retrieve Plan Types");
+			//throw std::runtime_error("Unable to Retrieve Plan Types");
 		}
 
 		for (const auto& plan : planTypeVect)
@@ -33,8 +33,8 @@ void LSL::FeeModule::PlanExecutorStore::init()
 			{
 				//LogWarning() << __PRETTY_FUNCTION__ << ex.what();
 				//LogWarning() << __PRETTY_FUNCTION__ << " Unable To Set PlanType Against Plan for:" << plan.at(0);
-				WARNING_LOG("FeeModule", fmt::format("{} -  {}", __PRETTY_FUNCTION__, ex.what()));
-				WARNING_LOG("FeeModule", fmt::format("{} - Unable To Set PlanType Against Plan for: {}", __PRETTY_FUNCTION__, plan.at(0)));
+				//WARNING_LOG("FeeModule", fmt::format("{} -  {}", __PRETTY_FUNCTION__, ex.what()));
+				//WARNING_LOG("FeeModule", fmt::format("{} - Unable To Set PlanType Against Plan for: {}", __PRETTY_FUNCTION__, plan.at(0)));
 				continue;
 			}
 		}
@@ -57,7 +57,7 @@ void LSL::FeeModule::PlanExecutorStore::init()
 			{
 				//LogWarning() << __PRETTY_FUNCTION__ << ex.what();
 				//LogWarning() << __PRETTY_FUNCTION__ << " Unable To Set setExecutor State Plan for KEY:" << order.at(0);
-				WARNING_LOG("FeeModule", fmt::format("{} -  {}", __PRETTY_FUNCTION__, ex.what()));
+				//WARNING_LOG("FeeModule", fmt::format("{} -  {}", __PRETTY_FUNCTION__, ex.what()));
 				LogWarning() << __PRETTY_FUNCTION__ << " Unable To Set setExecutor State Plan for KEY & PlanID: " << order.at(0) << " - " << order.at(1);
 				continue;
 			}
@@ -65,14 +65,14 @@ void LSL::FeeModule::PlanExecutorStore::init()
 		planExecutorData.clear();
 	}
 	//LogInfo() << __PRETTY_FUNCTION__ << " 'Initialized'";
-	INFO_LOG("FeeModule", fmt::format("{} - Initialized", __PRETTY_FUNCTION__));
+	//INFO_LOG("FeeModule", fmt::format("{} - Initialized", __PRETTY_FUNCTION__));
 }
 
 
 Fee LSL::FeeModule::PlanExecutorStore::GetExecutorState(int64_t planId, std::string dataKey)
 {
 	//LogDebug() << __PRETTY_FUNCTION__ << " 'called'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - called", __PRETTY_FUNCTION__));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - called", __PRETTY_FUNCTION__));
 	MAP_EXECUTOR_STORE::iterator executorSpecificStore = m_executorStores.find(planId);
 
 	if (executorSpecificStore == m_executorStores.end())
@@ -95,19 +95,19 @@ Fee LSL::FeeModule::PlanExecutorStore::GetExecutorState(int64_t planId, std::str
 void LSL::FeeModule::PlanExecutorStore::SetExecutorState(int64_t planType, std::string dataKey, const Fee& fee)
 {
 	//LogDebug() << __PRETTY_FUNCTION__ << " 'called'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - called", __PRETTY_FUNCTION__));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - called", __PRETTY_FUNCTION__));
 	setExecutorStateInternal(planType, dataKey, fee);
 }
 
 void LSL::FeeModule::PlanExecutorStore::setExecutorStateInternal(int64_t planType, std::string dataKey, const Fee& fee)
 {
 	//LogDebug() << __PRETTY_FUNCTION__ << " 'called'";
-	DEBUG_LOG("FeeModule", fmt::format("{} - called", __PRETTY_FUNCTION__));
+	//DEBUG_LOG("FeeModule", fmt::format("{} - called", __PRETTY_FUNCTION__));
 	m_executorStores[planType][dataKey] = fee;
 }
 
 void LSL::FeeModule::PlanExecutorStore::finish()
 {
 	//LogInfo() << __PRETTY_FUNCTION__ << " 'Finished Successfully'";
-	INFO_LOG("FeeModule", fmt::format("{} - Finished Successfully", __PRETTY_FUNCTION__));
+	//INFO_LOG("FeeModule", fmt::format("{} - Finished Successfully", __PRETTY_FUNCTION__));
 }

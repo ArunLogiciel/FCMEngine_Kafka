@@ -25,7 +25,7 @@ LSL::FeeModule::FeeComissionManager::FeeComissionManager(IniParser& settings, co
 void LSL::FeeModule::FeeComissionManager::init()
 {
 	//LogInfo() << __PRETTY_FUNCTION__ << " 'Initializing'";
-	INFO_LOG("FeeModule", fmt::format("{} - Initializing ", __PRETTY_FUNCTION__));
+	//INFO_LOG("FeeModule", fmt::format("{} - Initializing ", __PRETTY_FUNCTION__));
 	// initialize all the components
 	try
 	{
@@ -44,19 +44,19 @@ void LSL::FeeModule::FeeComissionManager::init()
 	catch (std::exception& ex)
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'Failed to Initialize FeeCommissionManager : " << ex.what() << "'";
-		WARNING_LOG("FeeModule", fmt::format("{} - 'Failed to Initialize FeeCommissionManager:{}", __PRETTY_FUNCTION__, ex.what()));
+		//WARNING_LOG("FeeModule", fmt::format("{} - 'Failed to Initialize FeeCommissionManager:{}", __PRETTY_FUNCTION__, ex.what()));
 		std::abort(); //Should we ABORT incase Initialization Fails?
 		//throw std::exception("Failed to Initialize FeeCommissionManager");
 	}
 	//LogInfo() << __PRETTY_FUNCTION__ << " 'Initialization Completed'";
-	INFO_LOG("FeeModule", fmt::format("{} - Initialization Completed ", __PRETTY_FUNCTION__));
+	//INFO_LOG("FeeModule", fmt::format("{} - Initialization Completed ", __PRETTY_FUNCTION__));
 }
 
 //For Back Dated Adjustments
 void LSL::FeeModule::FeeComissionManager::init(Adjustment& adjustment)
 {
 	//LogInfo() << __PRETTY_FUNCTION__ << " 'Initializing For Back Date Adjustment'";
-	INFO_LOG("FeeModule", fmt::format("{} - Initializing For Back Date Adjustment ", __PRETTY_FUNCTION__));
+	//INFO_LOG("FeeModule", fmt::format("{} - Initializing For Back Date Adjustment ", __PRETTY_FUNCTION__));
 	try
 	{
 		m_accountStore.init(adjustment);
@@ -71,12 +71,12 @@ void LSL::FeeModule::FeeComissionManager::init(Adjustment& adjustment)
 	catch (std::exception& ex)
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << "Failed to Initialize FeeCommissionManager : " << ex.what();
-		WARNING_LOG("FeeModule", fmt::format("{} - 'Failed to Initialize FeeCommissionManager:{}", __PRETTY_FUNCTION__, ex.what()));
+		//WARNING_LOG("FeeModule", fmt::format("{} - 'Failed to Initialize FeeCommissionManager:{}", __PRETTY_FUNCTION__, ex.what()));
 		throw std::exception("Failed to Initialize FeeCommissionManager");
 	}
 
 	//LogInfo() << __PRETTY_FUNCTION__ << " 'Initialization Completed'";
-	INFO_LOG("FeeModule", fmt::format("{} - Initialization Completed ", __PRETTY_FUNCTION__));
+	//INFO_LOG("FeeModule", fmt::format("{} - Initialization Completed ", __PRETTY_FUNCTION__));
 }
 
 void LSL::FeeModule::FeeComissionManager::getAccountRelatedData(OrderExecutionData& data,
@@ -97,9 +97,9 @@ void LSL::FeeModule::FeeComissionManager::getAccountRelatedData(OrderExecutionDa
 	{
 		//If Account Doesn't Exist populate Id's with firms Id mapped from Props
 		//LogWarning() << __PRETTY_FUNCTION__ << "Account Doesn't Exist : Executing via Default Firm - " << data.accountValue;
-		WARNING_LOG("FeeModule", fmt::format("{} - Account Doesn't Exist : Executing via Default Firm:{}", __PRETTY_FUNCTION__, data.accountValue));
+		//WARNING_LOG("FeeModule", fmt::format("{} - Account Doesn't Exist : Executing via Default Firm:{}", __PRETTY_FUNCTION__, data.accountValue));
 		//LogWarning() << __PRETTY_FUNCTION__ << ex.what();
-		WARNING_LOG("FeeModule", fmt::format("{} - {}", __PRETTY_FUNCTION__, ex.what()));
+		//WARNING_LOG("FeeModule", fmt::format("{} - {}", __PRETTY_FUNCTION__, ex.what()));
 
 		data.firmId = m_accountStore.getFirmId(data.dfidRecv);
 		data.mpidId = m_accountStore.getMpidId(data.mpidRecv);
@@ -112,9 +112,9 @@ FeeComissionData LSL::FeeModule::FeeComissionManager::CalculateFeeAndComission(O
 {
 	// Get the Plan from plan selector
 	//LogInfo() << __PRETTY_FUNCTION__ << " 'FCM Calculation Initiated for OrderId:" << data.orderId << " | ExecutionId:" << data.executionId << "'";
-	INFO_LOG("FeeModule", fmt::format("{} - 'FCM Calculation Initiated for OrderId:{} | ExecutionId:{}", __PRETTY_FUNCTION__, data.orderId, data.executionId));
+	//INFO_LOG("FeeModule", fmt::format("{} - 'FCM Calculation Initiated for OrderId:{} | ExecutionId:{}", __PRETTY_FUNCTION__, data.orderId, data.executionId));
 	//LogInfo() << "Data Before Execution : " << data;
-	INFO_LOG("FeeModule", fmt::format("{} - Data Before Execution :{} ", __PRETTY_FUNCTION__, data.getString()));
+	//INFO_LOG("FeeModule", fmt::format("{} - Data Before Execution :{} ", __PRETTY_FUNCTION__, data.getString()));
 
 	FeeComissionData feeCommissionData;
 	FeeComissionData mpIdFeeData;
@@ -141,11 +141,11 @@ FeeComissionData LSL::FeeModule::FeeComissionManager::CalculateFeeAndComission(O
 				data.lastShares = -data.lastShares;
 
 				//LogDebug() << "Executing bust for TradeFees : ";
-				DEBUG_LOG("FeeModule", fmt::format("{} - Executing bust for TradeFees :", __PRETTY_FUNCTION__));
+				//DEBUG_LOG("FeeModule", fmt::format("{} - Executing bust for TradeFees :", __PRETTY_FUNCTION__));
 				feeCommissionData = m_planExecutor->Execute(tradeFees, m_plans, data); //this fee should be substracted from total fee on this order
 
 				//LogDebug() << "Executing bust for MPID Fees : ";
-				DEBUG_LOG("FeeModule", fmt::format("{} - Executing bust for MPID Fees :", __PRETTY_FUNCTION__));
+				//DEBUG_LOG("FeeModule", fmt::format("{} - Executing bust for MPID Fees :", __PRETTY_FUNCTION__));
 				mpIdFeeData = m_planExecutor->Execute(mpidFees, m_plans, data);
 
 				m_FCStore->insertOrderHistory(data);
@@ -180,11 +180,11 @@ FeeComissionData LSL::FeeModule::FeeComissionManager::CalculateFeeAndComission(O
 				m_FCStore->FillState(data);
 
 				//LogDebug() << "Executing correction for TradeFees : ";
-				DEBUG_LOG("FeeModule", fmt::format("{} - Executing correction for TradeFees :", __PRETTY_FUNCTION__));
+				//DEBUG_LOG("FeeModule", fmt::format("{} - Executing correction for TradeFees :", __PRETTY_FUNCTION__));
 				feeCommissionData = m_planExecutor->Execute(tradeFees, m_plans, data);
 
 				//LogDebug() << "Executing correction for MPID Fees : ";
-				DEBUG_LOG("FeeModule", fmt::format("{} - Executing correction for MPID Fees :", __PRETTY_FUNCTION__));
+				//DEBUG_LOG("FeeModule", fmt::format("{} - Executing correction for MPID Fees :", __PRETTY_FUNCTION__));
 				mpIdFeeData = m_planExecutor->Execute(mpidFees, m_plans, data);
 
 				m_FCStore->insertOrderHistory(data);
@@ -199,11 +199,11 @@ FeeComissionData LSL::FeeModule::FeeComissionManager::CalculateFeeAndComission(O
 
 			// Execute the plan
 			//LogDebug() << "Executing for TradeFees : ";
-			DEBUG_LOG("FeeModule", fmt::format("{} - Executing for TradeFees :", __PRETTY_FUNCTION__));
+			//DEBUG_LOG("FeeModule", fmt::format("{} - Executing for TradeFees :", __PRETTY_FUNCTION__));
 			feeCommissionData = m_planExecutor->Execute(tradeFees, m_plans, data);
 
 			//LogDebug() << "Executing for MPID Fees : ";
-			DEBUG_LOG("FeeModule", fmt::format("{} - Executing for MPID Fees :", __PRETTY_FUNCTION__));
+			//DEBUG_LOG("FeeModule", fmt::format("{} - Executing for MPID Fees :", __PRETTY_FUNCTION__));
 			mpIdFeeData = m_planExecutor->Execute(mpidFees, m_plans, data);
 
 			m_FCStore->insertOrderHistory(data);
@@ -215,28 +215,28 @@ FeeComissionData LSL::FeeModule::FeeComissionManager::CalculateFeeAndComission(O
 		m_FCStore->SaveFeeAndComission(data, feeCommissionData, mpIdFeeData);
 		//m_FCStore->SaveFeeAndComission(data, mpIdFeeData);
 		//LogInfo() << "Trade Fees - " << feeCommissionData;
-		INFO_LOG("FeeModule", fmt::format("{} - Trade Fees :{} ", __PRETTY_FUNCTION__, feeCommissionData.getStringFeeCommission()));
+		//INFO_LOG("FeeModule", fmt::format("{} - Trade Fees :{} ", __PRETTY_FUNCTION__, feeCommissionData.getStringFeeCommission()));
 		//LogInfo() << "MPID Fees - " << mpIdFeeData;
-		INFO_LOG("FeeModule", fmt::format("{} - MPID Fees :{} ", __PRETTY_FUNCTION__, mpIdFeeData.getStringFeeCommission()));
+		//INFO_LOG("FeeModule", fmt::format("{} - MPID Fees :{} ", __PRETTY_FUNCTION__, mpIdFeeData.getStringFeeCommission()));
 		//LogInfo() << "Data After Execution - " << data;
-		INFO_LOG("FeeModule", fmt::format("{} - Data After Execution :{} ", __PRETTY_FUNCTION__, data.getString()));
+		//INFO_LOG("FeeModule", fmt::format("{} - Data After Execution :{} ", __PRETTY_FUNCTION__, data.getString()));
 	}
 
 	catch (std::exception& ex)
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << " '" << ex.what() << "'";
-		WARNING_LOG("FeeModule", fmt::format("{} - {}", __PRETTY_FUNCTION__, ex.what()));
+		//WARNING_LOG("FeeModule", fmt::format("{} - {}", __PRETTY_FUNCTION__, ex.what()));
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'Saving Default FeeAndCommissionData for ExecutionId:" << data.executionId << "'";
-		WARNING_LOG("FeeModule", fmt::format("{} - Saving Default FeeAndCommissionData for ExecutionId:{}", __PRETTY_FUNCTION__, data.executionId));
+		//WARNING_LOG("FeeModule", fmt::format("{} - Saving Default FeeAndCommissionData for ExecutionId:{}", __PRETTY_FUNCTION__, data.executionId));
 		m_FCStore->SaveFeeAndComission(data, feeCommissionData, mpIdFeeData);
 	}
 
 	catch (...)
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'Exception in Calculating Fees & Commissions'";
-		WARNING_LOG("FeeModule", fmt::format("{} - Exception in Calculating Fees & Commissions", __PRETTY_FUNCTION__));
+		//WARNING_LOG("FeeModule", fmt::format("{} - Exception in Calculating Fees & Commissions", __PRETTY_FUNCTION__));
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'Saving Default FeeAndCommissionData for ExecutionId:" << data.executionId << "'";
-		WARNING_LOG("FeeModule", fmt::format("{} - Saving Default FeeAndCommissionData for ExecutionId:{}", __PRETTY_FUNCTION__, data.executionId));
+		//WARNING_LOG("FeeModule", fmt::format("{} - Saving Default FeeAndCommissionData for ExecutionId:{}", __PRETTY_FUNCTION__, data.executionId));
 		m_FCStore->SaveFeeAndComission(data, feeCommissionData, mpIdFeeData);
 	}
 	// Return Fee commission data
@@ -246,7 +246,7 @@ FeeComissionData LSL::FeeModule::FeeComissionManager::CalculateFeeAndComission(O
 void LSL::FeeModule::FeeComissionManager::finish()
 {
 	//LogInfo() << __PRETTY_FUNCTION__ << " 'called'";
-	INFO_LOG("FeeModule", fmt::format("{} - called ", __PRETTY_FUNCTION__));
+	//INFO_LOG("FeeModule", fmt::format("{} - called ", __PRETTY_FUNCTION__));
 
 	// finish all the components
 	m_FCStore->finish();
@@ -257,7 +257,7 @@ void LSL::FeeModule::FeeComissionManager::finish()
 	m_methodInvoker->finish();
 	DbDataAdapter::getInstance()->finish();
 	//LogInfo() << __PRETTY_FUNCTION__ << " 'finished successfully'";
-	INFO_LOG("FeeModule", fmt::format("{} - finished successfully ", __PRETTY_FUNCTION__));
+	//INFO_LOG("FeeModule", fmt::format("{} - finished successfully ", __PRETTY_FUNCTION__));
 }
 
 //===================================== BACK DATE =======================================
@@ -265,7 +265,7 @@ FeeComissionData LSL::FeeModule::FeeComissionManager::CalculateFeeAndComission(O
 {
 	// Get the Plan from plan selector
 	//LogInfo() << __PRETTY_FUNCTION__ << " 'FCM Calculation Initiated for OrderId:" << data.orderId << " | ExecutionId:" << data.executionId << "'";
-	INFO_LOG("FeeModule", fmt::format("{} - 'FCM Calculation Initiated for OrderId:{} | ExecutionId:{}", __PRETTY_FUNCTION__, data.orderId,data.executionId));
+	//INFO_LOG("FeeModule", fmt::format("{} - 'FCM Calculation Initiated for OrderId:{} | ExecutionId:{}", __PRETTY_FUNCTION__, data.orderId,data.executionId));
 
 	FeeComissionData feeCommissionData;
 	FeeComissionData mpIdFeeData;
@@ -283,13 +283,13 @@ FeeComissionData LSL::FeeModule::FeeComissionManager::CalculateFeeAndComission(O
 		if (adjustment.adjustmentType != EN_Adjustment_MPIDFee_Mpid && adjustment.adjustmentType != EN_Adjustment_MPIDFee_MultipleMpids)
 		{
 			//LogDebug() << "Executing for TradeFees : ";
-			DEBUG_LOG("FeeModule", fmt::format("{} - Executing for TradeFees :", __PRETTY_FUNCTION__));
+			//DEBUG_LOG("FeeModule", fmt::format("{} - Executing for TradeFees :", __PRETTY_FUNCTION__));
 			TradeFees tradeFees = m_planSelector->GetTradeFees(data.accountId);
 			feeCommissionData = m_planExecutor->Execute(tradeFees, m_plans, data);
 		}
 
 		//LogDebug() << "Executing for MPID Fees : ";
-		DEBUG_LOG("FeeModule", fmt::format("{} - Executing for MPID Fees :", __PRETTY_FUNCTION__));
+		//DEBUG_LOG("FeeModule", fmt::format("{} - Executing for MPID Fees :", __PRETTY_FUNCTION__));
 		TradeFees mpIdFees = m_planSelector->GetMPIDFees(data.mpidId);
 		mpIdFeeData = m_planExecutor->Execute(mpIdFees, m_plans, data);
 
@@ -300,19 +300,19 @@ FeeComissionData LSL::FeeModule::FeeComissionManager::CalculateFeeAndComission(O
 		//m_FCStore->FillState(data);
 
 		//LogInfo() << "Trade Fees - " << feeCommissionData;
-		INFO_LOG("FeeModule", fmt::format("{} - Trade Fees :{} ", __PRETTY_FUNCTION__, feeCommissionData.getStringFeeCommission()));
+		//INFO_LOG("FeeModule", fmt::format("{} - Trade Fees :{} ", __PRETTY_FUNCTION__, feeCommissionData.getStringFeeCommission()));
 		//LogInfo() << "MPID Fees - " << mpIdFeeData;
-		INFO_LOG("FeeModule", fmt::format("{} - MPID Fees :{} ", __PRETTY_FUNCTION__, mpIdFeeData.getStringFeeCommission()));
+		//INFO_LOG("FeeModule", fmt::format("{} - MPID Fees :{} ", __PRETTY_FUNCTION__, mpIdFeeData.getStringFeeCommission()));
 		//LogInfo() << "Data After Execution - " << data;
 		//std::ostream stringStream << "'";
-		INFO_LOG("FeeModule", fmt::format("{} - Data After Execution :{} ", __PRETTY_FUNCTION__, data.getString() ) );	
+		//INFO_LOG("FeeModule", fmt::format("{} - Data After Execution :{} ", __PRETTY_FUNCTION__, data.getString() ) );	
 		
 	}
 
 	catch (...)
 	{
 		//LogWarning() << __PRETTY_FUNCTION__ << " 'Exception Saving Default FeeAndCommissionData for ExecutionId:" << data.executionId << "'";
-		WARNING_LOG("FeeModule", fmt::format("{} - Exception Saving Default FeeAndCommissionData for ExecutionId:{}", __PRETTY_FUNCTION__, data.executionId));
+		//WARNING_LOG("FeeModule", fmt::format("{} - Exception Saving Default FeeAndCommissionData for ExecutionId:{}", __PRETTY_FUNCTION__, data.executionId));
 		m_FCStore->SaveFeeAndComission(data, feeCommissionData, mpIdFeeData);
 	}
 	return feeCommissionData;

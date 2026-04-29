@@ -1,6 +1,6 @@
 #include "../FeeModule/HolidayAdapter.h"
 #include "../FeeModule/logger/logger.hpp"
-#include "../FeeModule/fmt/include/fmt/format.h"
+//#include "../FeeModule/fmt/include/fmt/format.h"
 
 using namespace LSL::FeeModule;
 
@@ -23,12 +23,12 @@ void HolidayAdapter::processResponse(HolidaySet& holidays, const std::string& re
 
 	if (body.HasParseError())
 	{
-		throw std::runtime_error("Holiday API: Failed to parse JSON response");
+		//throw std::runtime_error("Holiday API: Failed to parse JSON response");
 	}
 
 	if (!body.IsArray())
 	{
-		throw std::runtime_error("Holiday API: Expected JSON array in response");
+		//throw std::runtime_error("Holiday API: Expected JSON array in response");
 	}
 
 	for (rapidjson::SizeType i = 0; i < body.Size(); i++)
@@ -44,5 +44,5 @@ void HolidayAdapter::processResponse(HolidaySet& holidays, const std::string& re
 		}
 	}
 
-	//INFO_LOG("FeeModule", fmt::format("{} - Fetched {} holidays from API", __PRETTY_FUNCTION__, holidays.size()));
+	////INFO_LOG("FeeModule", fmt::format("{} - Fetched {} holidays from API", __PRETTY_FUNCTION__, holidays.size()));
 }

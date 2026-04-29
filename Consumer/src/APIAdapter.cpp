@@ -86,7 +86,7 @@ bool APIAdapter::processResponse(TapeMap& tapeMap, ExchangeMap& exchangeMap, con
 		}
 	}
 
-	throw std::runtime_error("RESPONSE STATUS CODE IS NOT HTTP-200 [SUCCESS]");
+	//throw std::runtime_error("RESPONSE STATUS CODE IS NOT HTTP-200 [SUCCESS]");
 }
 
 /*
